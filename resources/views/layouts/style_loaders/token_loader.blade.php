@@ -1,0 +1,1 @@
+<meta name="csrf_token" content="{{ csrf_token() }}">
