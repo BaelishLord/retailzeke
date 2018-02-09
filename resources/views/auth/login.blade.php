@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('htmlheader_title')
+    Log in
+@endsection
 
 @section('content')
 <div class="container">

@@ -1,7 +1,7 @@
-<!-- Main Footer -->
+  <!-- /.content-wrapper -->
 <footer class="main-footer">
-    <!-- To the right -->
-    
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a target = "_blank" href="http://solutionplanets.com">Solution Planets</a>.</strong>
+	<div class="pull-right hidden-xs">
+	  <b>Version</b> 2.4.0
+	</div>
+	<strong>Copyright &copy; 2014-2016 <a href="#">Almsaeed Studio</a>.</strong> All rights reserved.
 </footer>

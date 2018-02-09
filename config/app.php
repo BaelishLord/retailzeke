@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // The below line will include all the helper files in app/Helpers/*.php
+        App\Providers\HelperServiceProvider::class,
     ],
 
     /*

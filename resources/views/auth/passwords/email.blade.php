@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('htmlheader_title')
+    Password recovery
+@endsection
 
 @section('content')
 <div class="container">
