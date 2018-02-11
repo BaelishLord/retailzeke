@@ -50,12 +50,12 @@
                     <label>Address</label>
                     <textarea class="form-control required" placeholder="Address" style=""></textarea>
                 </div>
-            </div>
-            <div class = "col-md-6">
                 <div class="form-group">  
                     <label>Telephone</label>
                     <input type="number" class="form-control required" name="phonenumber" placeholder="Telephone">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" class="form-control required" name="email" placeholder="Email">
@@ -63,6 +63,10 @@
                 <div class="form-group">
                     <label>GST/Others</label>
                     <input type="text" class="form-control required" name="gstother" placeholder="GST/Others">
+                </div>
+                <div class="form-group">
+                    <label>Product Dealing In</label>
+                    <input type="text" class="form-control required" name="productdealin" placeholder="Product Dealing In">
                 </div>
                 <div class="form-group">
                     <label>Birthday/Annivarsary (Optional)</label>

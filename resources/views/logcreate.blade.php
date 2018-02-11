@@ -3,7 +3,7 @@
 @section('custom-styles')
   
     @include('layouts.style_loaders.token_loader')
-    <link href="{{ asset('/css/common/datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/common/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/css/common/common.css') }}" rel="stylesheet" type="text/css" />
     
 @endsection
@@ -39,34 +39,34 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control required" name="customername" placeholder="Name">
+                    <label>Party Name</label>
+                    <input type="text" class="form-control required" name="partyname" placeholder="Party Name">
                 </div>
                 <div class="form-group">
-                    <label>Company/Group Name</label>
-                    <input type="text" class="form-control required" name="companyname" placeholder="Company/Group Name">
+                    <label>Log Date And Time</label>
+                    <input type="text" class="form-control datetimepicker required" name="date" placeholder="Log Date And Time">
                 </div>
-                <div class="form-group"> 
-                    <label>Address</label>
-                    <textarea class="form-control required" placeholder="Address" style=""></textarea>
+                <div class="form-group">  
+                    <label>Contact Number</label>
+                    <input type="text" maxlength="10" class="form-control required number" name="phonenumber" placeholder="Contact Number">
+                </div>
+                <div class="form-group">
+                    <label>Called By</label>
+                    <input type="text" class="form-control required" name="calledby" placeholder="Called By">
                 </div>
             </div>
             <div class = "col-md-6">
-                <div class="form-group">  
-                    <label>Telephone</label>
-                    <input type="number" class="form-control required" name="phonenumber" placeholder="Telephone">
+                <div class="form-group">
+                    <label>Engineer Assigned</label>
+                    <input type="text" class="form-control required" name="engassigned" placeholder="Engineer Assigned">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control required" name="email" placeholder="Email">
+                    <label>Problem Description</label>
+                    <textarea class="form-control required" name="problemdesc" placeholder="Problem Description" ></textarea>
                 </div>
                 <div class="form-group">
-                    <label>GST/Others</label>
-                    <input type="text" class="form-control required" name="gstother" placeholder="GST/Others">
-                </div>
-                <div class="form-group">
-                    <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" name="dob" placeholder="Birthday/Annivarsary (Optional)">
+                    <label>Part To Be Taken</label>
+                    <input type="text" class="form-control required" name="partbtaken" placeholder="Part To Be Taken">
                 </div>
             </div>
         </div>
@@ -87,11 +87,11 @@
 
 @section('custom-scripts')
     <script src="{{ asset('/js/common/jquery.validate.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/js/common/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/js/common/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datepicker').datepicker();
+            $('.datetimepicker').datetimepicker();
         });
     </script>
 

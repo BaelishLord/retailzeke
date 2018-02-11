@@ -39,34 +39,38 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control required" name="customername" placeholder="Name">
+                    <label>Party Name</label>
+                    <input type="text" class="form-control required" name="partyname" placeholder="Party Name">
                 </div>
                 <div class="form-group">
-                    <label>Company/Group Name</label>
-                    <input type="text" class="form-control required" name="companyname" placeholder="Company/Group Name">
+                    <label>Date</label>
+                    <input type="text" class="form-control datepicker required" name="dob" placeholder="Date">
                 </div>
-                <div class="form-group"> 
+                <div class="form-group">
                     <label>Address</label>
-                    <textarea class="form-control required" placeholder="Address" style=""></textarea>
+                    <textarea class="form-control required" name="address" placeholder="Address" ></textarea>
+                </div>
+                <div class="form-group">  
+                    <label>Contact Number</label>
+                    <input type="text" maxlength="10" class="form-control required number" name="phonenumber" placeholder="Contact Number">
                 </div>
             </div>
             <div class = "col-md-6">
-                <div class="form-group">  
-                    <label>Telephone</label>
-                    <input type="number" class="form-control required" name="phonenumber" placeholder="Telephone">
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control required" name="quantity" placeholder="Quantity">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control required" name="email" placeholder="Email">
+                    <label>Order By/Reference</label>
+                    <input type="text" class="form-control required" name="orderby" placeholder="Order By/Reference">
                 </div>
                 <div class="form-group">
-                    <label>GST/Others</label>
-                    <input type="text" class="form-control required" name="gstother" placeholder="GST/Others">
+                    <label>Product Description</label>
+                    <textarea class="form-control required" name="productdesc" placeholder="Product Description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" name="dob" placeholder="Birthday/Annivarsary (Optional)">
+                    <label>Warranty/Chargable</label>
+                    <input type="text" class="form-control required" name="warranty" placeholder="Warranty/Chargable">
                 </div>
             </div>
         </div>

@@ -39,34 +39,48 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control required" name="customername" placeholder="Name">
+                    <label>Type</label>
+                    <select class="form-control required" name="type">
+                        <option value="">--Please Select--</option>
+                        <option value="amc">AMC</option>
+                        <option value="antivirus">Antivirus</option>
+                        <option value="renewal">Software Renewal</option>
+                        <option value="warranty">Warranty Maintainance</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>Company/Group Name</label>
-                    <input type="text" class="form-control required" name="companyname" placeholder="Company/Group Name">
+                    <label>Party Name</label>
+                    <input type="text" class="form-control required" name="partyname" placeholder="Party Name">
                 </div>
-                <div class="form-group"> 
-                    <label>Address</label>
-                    <textarea class="form-control required" placeholder="Address" style=""></textarea>
+                <div class="form-group">
+                    <label>Product Serial Number</label>
+                    <input type="text" class="form-control required" name="poductid" placeholder="Product Serial Number">
+                </div>
+                <div class="form-group">
+                    <label>From Date</label>
+                    <input type="text" class="form-control datetimepicker required" name="fromdate" placeholder="From Date">
+                </div>
+                <div class="form-group">
+                    <label>To Date</label>
+                    <input type="text" class="form-control datetimepicker required" name="todate" placeholder="To Date">
                 </div>
             </div>
             <div class = "col-md-6">
-                <div class="form-group">  
-                    <label>Telephone</label>
-                    <input type="number" class="form-control required" name="phonenumber" placeholder="Telephone">
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control required" name="quantity" placeholder="Quantity">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control required" name="email" placeholder="Email">
+                    <label>Sub Total</label>
+                    <input type="number" class="form-control required" name="subtotal" placeholder="Sub Total">
                 </div>
                 <div class="form-group">
-                    <label>GST/Others</label>
-                    <input type="text" class="form-control required" name="gstother" placeholder="GST/Others">
+                    <label>Taxes</label>
+                    <input type="text" class="form-control required" name="taxes" placeholder="Taxes">
                 </div>
                 <div class="form-group">
-                    <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" name="dob" placeholder="Birthday/Annivarsary (Optional)">
+                    <label>Total</label>
+                    <input type="number" class="form-control required" name="total" placeholder="Total">
                 </div>
             </div>
         </div>

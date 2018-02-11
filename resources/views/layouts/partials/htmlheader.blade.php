@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | @yield('htmlheader_title', 'Dashboard')</title>
+  <title>Zeke Retail | @yield('htmlheader_title', 'Dashboard')</title>
 
   <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('/favicons/apple-icon-57x57.png') }}">
