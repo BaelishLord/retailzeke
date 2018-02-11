@@ -77,6 +77,7 @@
 
     @include('layouts.script_loaders.datatable_loader')
     @include('layouts.script_loaders.excel_loader')    
+    <script src="{{ asset('/js/common/chosen.jquery.min.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {

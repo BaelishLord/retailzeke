@@ -26,7 +26,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
+        <li class="active treeview hide">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
@@ -39,6 +39,26 @@
           </ul>
         </li>
         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Masters</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/customer"><i class="fa fa-circle-o"></i> Customer</a></li>
+            <li><a href="/vendor"><i class="fa fa-circle-o"></i> Vendor</a></li>
+            <li><a href="/inwards"><i class="fa fa-circle-o"></i> Inwards</a></li>
+            <li><a href="/outwards"><i class="fa fa-circle-o"></i> Outwards</a></li>
+            <li><a href="/quotation"><i class="fa fa-circle-o"></i> Quotation</a></li>
+            <li><a href="/purchase"><i class="fa fa-circle-o"></i> Purchase</a></li>
+            <li><a href="/log"><i class="fa fa-circle-o"></i> Log</a></li>
+            <li><a href="/callcomplete"><i class="fa fa-circle-o"></i> Call Complete</a></li>
+            <li><a href="/maintainance"><i class="fa fa-circle-o"></i> Maintainance</a></li>
+          </ul>
+        </li>
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>Layout Options</span>
@@ -53,7 +73,7 @@
             <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
           </ul>
         </li>
-        <li>
+        <li class="hide">
           <a href="pages/widgets.html">
             <i class="fa fa-th"></i> <span>Widgets</span>
             <span class="pull-right-container">
@@ -61,7 +81,7 @@
             </span>
           </a>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
             <span>Charts</span>
@@ -76,7 +96,7 @@
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>UI Elements</span>
@@ -93,7 +113,7 @@
             <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Forms</span>
             <span class="pull-right-container">
@@ -106,7 +126,7 @@
             <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-table"></i> <span>Tables</span>
             <span class="pull-right-container">
@@ -118,7 +138,7 @@
             <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
           </ul>
         </li>
-        <li>
+        <li class="hide">
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
@@ -127,7 +147,7 @@
             </span>
           </a>
         </li>
-        <li>
+        <li class="hide">
           <a href="pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
             <span class="pull-right-container">
@@ -137,7 +157,7 @@
             </span>
           </a>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
             <span class="pull-right-container">
@@ -156,7 +176,7 @@
             <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
           </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview hide">
           <a href="#">
             <i class="fa fa-share"></i> <span>Multilevel</span>
             <span class="pull-right-container">
@@ -189,7 +209,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           </ul>
         </li>
-        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        <li class="hide"><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

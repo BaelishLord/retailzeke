@@ -179,6 +179,11 @@ return [
 
         // The below line will include all the helper files in app/Helpers/*.php
         App\Providers\HelperServiceProvider::class,
+
+        /*
+         * Datatable
+         */
+        Yajra\DataTables\DataTablesServiceProvider::class,
     ],
 
     /*
@@ -228,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

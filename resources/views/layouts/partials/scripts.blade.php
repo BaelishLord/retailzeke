@@ -35,7 +35,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>
+<!-- <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
 
@@ -45,8 +45,15 @@
 
 <?php
     $js_data['env'] = env('APP_ENV');
+	$js_data['errors'] = (isset($errors) && count($errors) > 0) ? $errors->toArray() : [];
+    $js_data['user_id'] = isset(Auth::user()->emp_id) ? Auth::user()->emp_id : '';
 ?>
 @yield('php-to-js')
 
+<script type="text/javascript">
+    var lang = lang || {};
+    $.extend(true, lang, {!! json_encode($js_data) !!});
+    // errorDisplay();
+</script>
 
 @yield('custom-scripts' )
