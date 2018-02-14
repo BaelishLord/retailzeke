@@ -39,24 +39,57 @@
           </ul>
         </li>
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Masters</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="/customer"><i class="fa fa-circle-o"></i> Customer</a></li>
-            <li><a href="/vendor"><i class="fa fa-circle-o"></i> Vendor</a></li>
-            <li><a href="/inwards"><i class="fa fa-circle-o"></i> Inwards</a></li>
-            <li><a href="/outwards"><i class="fa fa-circle-o"></i> Outwards</a></li>
-            <li><a href="/quotation"><i class="fa fa-circle-o"></i> Quotation</a></li>
-            <li><a href="/purchase"><i class="fa fa-circle-o"></i> Purchase</a></li>
-            <li><a href="/log"><i class="fa fa-circle-o"></i> Log</a></li>
-            <li><a href="/callcomplete"><i class="fa fa-circle-o"></i> Call Complete</a></li>
-            <li><a href="/maintainance"><i class="fa fa-circle-o"></i> Maintainance</a></li>
-          </ul>
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Masters</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/customer"><i class="fa fa-circle-o"></i> Customer</a></li>
+                <li><a href="/vendor"><i class="fa fa-circle-o"></i> Vendor</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Process</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/inwards"><i class="fa fa-circle-o"></i> Inwards</a></li>
+                <li><a href="/outwards"><i class="fa fa-circle-o"></i> Outwards</a></li>
+                <li><a href="/quotation"><i class="fa fa-circle-o"></i> Quotation</a></li>
+                <li><a href="/purchase"><i class="fa fa-circle-o"></i> Purchase</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Logs</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/log"><i class="fa fa-circle-o"></i> Log</a></li>
+                <li><a href="/callcomplete"><i class="fa fa-circle-o"></i> Call Complete</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Maintainance</span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/maintainance"><i class="fa fa-circle-o"></i> Maintainance</a></li>
+            </ul>
         </li>
         <li class="treeview hide">
           <a href="#">
