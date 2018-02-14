@@ -29,10 +29,12 @@
 @section('main-content')
 
 @if (Request::segment(4))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put']) !!}
 @else
+    {!! Form::open(['url' => "/".Request::segment(1)]) !!}
 @endif
+
 <input type="hidden" name="screen_name" value = "{{(isset($data) && isset($data['screen_name'])) ? $data['screen_name'] : ''}}">
-<form id="validateForm" action="#" method="post">
 
 <section class="panel">
     <div class="panel-body">
@@ -74,7 +76,7 @@
 </section>
 
 @include('layouts.custom_partials.save_panel')
-</form>
+{!! Form::close() !!}
 
 @endsection
 

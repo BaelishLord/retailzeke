@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Datatables;
+use DataTables;
 use App\Models\User;
 
 class VendorController extends Controller
@@ -31,26 +31,10 @@ class VendorController extends Controller
                     SELECT 
                         u.id,
                         u.name AS name,
-                        u.email AS email,
-                        REPLACE(GROUP_CONCAT(concat('<span class = \'label bg-sharekhan\'>',r.name,'</span>')), ',', ' ') AS role,
-                        sc.code_desc AS status
+                        u.email AS email
                     FROM
                         users u
-                            LEFT JOIN
-                        (SELECT 
-                            sc.code_id, sc.code_desc, sc.code_val
-                        FROM
-                            system_codes sc
-                        WHERE
-                            code_id = ?) sc ON u.status = sc.code_val
-                            LEFT JOIN
-                        (SELECT 
-                            ru.id, r.name, ru.user_id
-                        FROM
-                            role_user ru
-                        LEFT JOIN roles r ON ru.role_id = r.id) AS r ON u.id = r.user_id
-                    GROUP BY u.id
-                    ORDER BY u.id DESC;", [config('constants.CODE_ID_STATUS')]);
+                    ORDER BY u.id DESC;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
@@ -58,8 +42,8 @@ class VendorController extends Controller
         
 
 
-        $data['columns'] = excludeColumn(getColumnList($this->user), ['emp_id']); // Array to be excluded.
-        $data['columns'] = array_merge(['user_action', 'role'], $data['columns'], []);
+        $data['columns'] = excludeColumn(getColumnList($this->user), []); // Array to be excluded.
+        $data['columns'] = array_merge([], $data['columns'], []);
         
         $data['pk'] = User::getKeyField();
 

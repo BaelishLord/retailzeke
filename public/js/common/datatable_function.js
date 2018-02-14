@@ -16,13 +16,11 @@ function datatableInitWithButtonsAndDynamicRev(obj) {
         ajax: {
             ajax_url : obj.ajax_url,
             data : function(d) {
-                d.designation = $('.designation').val(),
-                d.event = $('.event').val(),
-                d.month = $('.select_month_filter').val()
                 if (obj.ajax_data && obj.ajax_data != "") {
                     $.each(obj.ajax_data, function(k, v) {
                         d[k] = v
                     })
+                    console.log(d)
                 }
             }
         },

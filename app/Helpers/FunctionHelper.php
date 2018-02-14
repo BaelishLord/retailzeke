@@ -21,3 +21,11 @@ function getIndex($arr, $check) {
     }
     return $res;
 }
+
+function htmlValue($name, $data) {
+    return \Input::old($name) ? \Input::old($name) : ((isset($data) && isset($data[$name])) ? $data[$name] : '');
+}
+
+function htmlSelect($name, $data) {
+    return \Input::old($name) ? \Input::old($name) : ((isset($data) && isset($data[$name])) ? $data[$name] : null);
+}

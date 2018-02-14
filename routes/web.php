@@ -22,10 +22,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'TestController@index')->name('test');
 Route::get('/test/create', 'TestController@create')->name('testcreate');
 
+Route::resource('/customer', 'CustomerController');
+
 //-------------------------------------Master-----------------------------------------// 
 	// customer routes
-	Route::get('/customer', 'CustomerController@index')->name('customer');
-	Route::get('/customer/create', 'CustomerController@create')->name('customercreate');
+	// Route::get('/customer', 'CustomerController@index')->name('customer');
+	// Route::get('/customer/create', 'CustomerController@create')->name('customercreate');
 
 	// vendor routes
 	Route::get('/vendor', 'VendorController@index')->name('vendor');

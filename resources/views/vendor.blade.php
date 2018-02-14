@@ -77,7 +77,7 @@
 
     @include('layouts.script_loaders.datatable_loader')
     @include('layouts.script_loaders.excel_loader')    
-
+    
     <script type="text/javascript">
         $(document).ready(function() {
             

@@ -40,6 +40,7 @@
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
 
 <!-- All custom additions will be done here -->
+<script src="{{ asset('/js/common/function.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/common/datatable_function.js') }}" type="text/javascript"></script>
 
 
