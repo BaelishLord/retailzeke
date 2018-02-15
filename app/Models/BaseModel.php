@@ -44,7 +44,7 @@ class BaseModel extends Model
     }
 
     public function getEventList() {
-    	return EventManagement\EventRequest::orderBy(EventManagement\EventRequest::getKeyField(), 'desc')->whereNotIn('er_request_status', [config('constants.EVENT_ASSET_STATUS.REJECTED')])->pluck('er_name', EventManagement\EventRequest::getKeyField());
+        return EventManagement\EventRequest::orderBy(EventManagement\EventRequest::getKeyField(), 'desc')->whereNotIn('er_request_status', [config('constants.EVENT_ASSET_STATUS.REJECTED')])->pluck('er_name', EventManagement\EventRequest::getKeyField());
     }
 
     public static function getActive() {

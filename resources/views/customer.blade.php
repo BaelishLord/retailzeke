@@ -68,20 +68,18 @@
         $js_data['env'] = env('APP_ENV');
         $js_data['columns'] = $data['columns'];
         $js_data['pk'] = $data['pk'];
-        $js_data['status'] = config('constants.STATUS');
-        $js_data['color'] = config('constants.COLOR_GENERAL');
+        $js_data['prefix'] = $data['prefix'];
     ?>
 @endsection
 
 @section('custom-scripts')
 
     @include('layouts.script_loaders.datatable_loader')
-    @include('layouts.script_loaders.excel_loader')    
-    <script src="{{ asset('/js/common/chosen.jquery.min.js') }}" type="text/javascript"></script>
+    @include('layouts.script_loaders.excel_loader')
 
     <script type="text/javascript">
         $(document).ready(function() {
-            
+
             var action_obj = [];
 
             var datatable_object = {
@@ -114,9 +112,7 @@
             }
 
             table = datatableInitWithButtonsAndDynamicRev(datatable_object);
-            
-            changeRowColorGeneral("thead_status" ,{"open":lang.color.OPEN, "active": lang.color.ACTIVE, "inactive":lang.color.INACTIVE, "closed":lang.color.CLOSED}, table);
-            
+                        
             statusChange();
 
         });
