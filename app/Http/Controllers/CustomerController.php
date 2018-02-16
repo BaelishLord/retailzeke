@@ -42,7 +42,7 @@ class CustomerController extends Controller
                             c_email as email,
                             c_address as address,
                             c_gst as gst,
-                            c_birthday as birthday
+                            DATE_FORMAT(c_birthday, '%W %M %e %Y') as birthday
                         FROM customers;", []);
 
             $data = collect($data);
@@ -76,7 +76,7 @@ class CustomerController extends Controller
     {
         $data = $request->all();
         $save_cond =  $request->save;
-
+        
         beginTransaction();
 
         $response = create($this->customer, $data);

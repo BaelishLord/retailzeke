@@ -155,7 +155,7 @@ function datatableInitWithButtonsAndDynamicRev(obj) {
     
     datatableScroll();
     datatableFooter(obj, table);
-    datatableLength();
+    // datatableLength();
     datatableAcl(table);
 
     return table;

@@ -29,10 +29,12 @@
 @section('main-content')
 
 @if (Request::segment(4))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
+    {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
+
 <input type="hidden" name="screen_name" value = "{{(isset($data) && isset($data['screen_name'])) ? $data['screen_name'] : ''}}">
-<form id="validateForm" action="#" method="post">
 
 <section class="panel">
     <div class="panel-body">
@@ -40,37 +42,55 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control required" name="customername" placeholder="Name">
-                </div>
-                <div class="form-group">
-                    <label>Company/Group Name</label>
-                    <input type="text" class="form-control required" name="companyname" placeholder="Company/Group Name">
-                </div>
-                <div class="form-group"> 
-                    <label>Address</label>
-                    <textarea class="form-control required" placeholder="Address" style=""></textarea>
-                </div>
-                <div class="form-group">  
-                    <label>Telephone</label>
-                    <input type="number" class="form-control required" name="phonenumber" placeholder="Telephone">
+                    <input type="text" class="form-control required" id="v_name" name = "v_name" placeholder="Enter Name" value = "{{htmlValue('v_name', $data)}}">
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control required" name="email" placeholder="Email">
+                    <label>Company/Group Name</label>
+                    <input type="text" class="form-control required" id="v_company_name" name = "v_company_name" placeholder="Enter Company/Group Name" value = "{{htmlValue('v_company_name', $data)}}">
                 </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class="form-group"> 
+                    <label>Address</label>
+                    <textarea class="form-control required" id="v_address" name = "v_address" placeholder="Enter Address">{{htmlValue('v_address', $data)}}</textarea>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class="form-group">  
+                    <label>Telephone</label>
+                    <input type="text" class="form-control number required" id="v_telephone" name = "v_telephone" placeholder="Enter Telephone" value = "{{htmlValue('v_telephone', $data)}}">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control required" id="v_email" name = "v_email" placeholder="Enter Email" value = "{{htmlValue('v_email', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>GST/Others</label>
-                    <input type="text" class="form-control required" name="gstother" placeholder="GST/Others">
+                    <input type="text" class="form-control required" id="v_gst" name = "v_gst" placeholder="Enter GST/Others">
                 </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Product Dealing In</label>
-                    <input type="text" class="form-control required" name="productdealin" placeholder="Product Dealing In">
+                    <input type="text" class="form-control required" id="v_product_dealin" name = "v_product_dealin" placeholder="Enter Product Dealing In" value = "{{htmlValue('v_product_dealin', $data)}}">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" name="dob" placeholder="Birthday/Annivarsary (Optional)">
+                    <input type="text" class="form-control datepicker" id="v_birthday" name = "v_birthday" placeholder="Enter Birthday/Annivarsary (Optional)" value = "{{htmlValue('v_birthday', $data)}}">
                 </div>
             </div>
         </div>
@@ -78,7 +98,7 @@
 </section>
 
 @include('layouts.custom_partials.save_panel')
-</form>
+{!! Form::close() !!}
 
 @endsection
 
@@ -95,7 +115,7 @@
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datepicker').datepicker();
+            $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
         });
     </script>
 

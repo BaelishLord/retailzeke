@@ -25,6 +25,8 @@ Route::get('/test/create', 'TestController@create')->name('testcreate');
 
 // create a resource full route for all the modules 1
 Route::resource('/customer', 'CustomerController');
+Route::resource('/vendor', 'VendorController');
+Route::resource('/inwards', 'InwardsController');
 
 //-------------------------------------Master-----------------------------------------// 
 	// customer routes
@@ -32,14 +34,14 @@ Route::resource('/customer', 'CustomerController');
 	// Route::get('/customer/create', 'CustomerController@create')->name('customercreate');
 
 	// vendor routes
-	Route::get('/vendor', 'VendorController@index')->name('vendor');
-	Route::get('/vendor/create', 'VendorController@create')->name('vendorcreate');
+	// Route::get('/vendor', 'VendorController@index')->name('vendor');
+	// Route::get('/vendor/create', 'VendorController@create')->name('vendorcreate');
 //-------------------------------------Master-----------------------------------------// 
 
 //-------------------------------------Process-----------------------------------------// 
 	// inwards routes
-	Route::get('/inwards', 'InwardsController@index')->name('inwards');
-	Route::get('/inwards/create', 'InwardsController@create')->name('inwardscreate');
+	// Route::get('/inwards', 'InwardsController@index')->name('inwards');
+	// Route::get('/inwards/create', 'InwardsController@create')->name('inwardscreate');
 
 	// outwards routes
 	Route::get('/outwards', 'OutwardsController@index')->name('outwards');
