@@ -51,14 +51,13 @@ class CustomerController extends Controller
         
         // return getColumnList($this->customer);
         $data['columns'] = excludeColumn(getColumnList($this->customer), []); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], []);
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
         $data['pk'] = Customer::getKeyField();
         $data['prefix'] = config('constants.Customer.prefix');
 
         $data['disable_footer_column'] = ['action'];
         $data['disable_footer_search'] = [];
-
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
         return view('customer', ['data' => $data]);
@@ -89,5 +88,29 @@ class CustomerController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Customer::find($id);
+        // return $data;
+        return view('customercreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->customer, $data, $id, Customer::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }
