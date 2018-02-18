@@ -29,10 +29,12 @@
 @section('main-content')
 
 @if (Request::segment(4))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
+    {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
+
 <input type="hidden" name="screen_name" value = "{{(isset($data) && isset($data['screen_name'])) ? $data['screen_name'] : ''}}">
-<form id="validateForm" action="#" method="post">
 
 <section class="panel">
     <div class="panel-body">
@@ -40,13 +42,13 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Attend Date And Time</label>
-                    <input type="text" class="form-control datetimepicker required" name="date" placeholder="Attend Date And Time">
+                    <input type="text" class="form-control datetimepicker required" id="cc_call_complete_date" name = "cc_call_complete_date" placeholder="Enter Attend Date And Time" value = "{{htmlValue('cc_call_complete_date', $data)}}">
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Status</label>
-                    <input type="text" class="form-control required" name="status" placeholder="Status">
+                    <input type="text" class="form-control required" id="cc_status" name = "cc_status" placeholder="Enter Status" value = "{{htmlValue('cc_status', $data)}}">
                 </div>
             </div>
         </div>
@@ -54,7 +56,7 @@
 </section>
 
 @include('layouts.custom_partials.save_panel')
-</form>
+{!! Form::close() !!}
 
 @endsection
 
@@ -71,7 +73,9 @@
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datetimepicker').datetimepicker();
+            $('.datetimepicker').datetimepicker({ 
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
         });
     </script>
 

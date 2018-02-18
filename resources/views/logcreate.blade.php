@@ -29,10 +29,12 @@
 @section('main-content')
 
 @if (Request::segment(4))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
+    {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
+
 <input type="hidden" name="screen_name" value = "{{(isset($data) && isset($data['screen_name'])) ? $data['screen_name'] : ''}}">
-<form id="validateForm" action="#" method="post">
 
 <section class="panel">
     <div class="panel-body">
@@ -40,33 +42,49 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Party Name</label>
-                    <input type="text" class="form-control required" name="partyname" placeholder="Party Name">
+                    <input type="text" class="form-control required" id="l_party_name" name = "l_party_name" placeholder="Enter Party Name" value = "{{htmlValue('l_party_name', $data)}}">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Log Date And Time</label>
-                    <input type="text" class="form-control datetimepicker required" name="date" placeholder="Log Date And Time">
+                    <input type="text" class="form-control datetimepicker required" id="l_log_date" name = "l_log_date" placeholder="Enter Log Date And Time" value = "{{htmlValue('l_log_date', $data)}}">
                 </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">  
                     <label>Contact Number</label>
-                    <input type="text" maxlength="10" class="form-control required number" name="phonenumber" placeholder="Contact Number">
+                    <input type="text" maxlength="10" class="form-control required number" id="l_contact_number" name = "l_contact_number" placeholder="Enter Contact Number" value = "{{htmlValue('l_contact_number', $data)}}">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Called By</label>
-                    <input type="text" class="form-control required" name="calledby" placeholder="Called By">
+                    <input type="text" class="form-control required" id="l_called_by" name = "l_called_by" placeholder="Enter Called By" value = "{{htmlValue('l_called_by', $data)}}">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Problem Description</label>
+                    <textarea class="form-control required" id="l_problem_description" name = "l_problem_description" placeholder="Enter Problem Description" >{{htmlValue('l_problem_description', $data)}}</textarea>
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Engineer Assigned</label>
-                    <input type="text" class="form-control required" name="engassigned" placeholder="Engineer Assigned">
+                    <input type="text" class="form-control required" id="l_assigned_engineer" name = "l_assigned_engineer" placeholder="Enter Engineer Assigned" value = "{{htmlValue('l_assigned_engineer', $data)}}">
                 </div>
-                <div class="form-group">
-                    <label>Problem Description</label>
-                    <textarea class="form-control required" name="problemdesc" placeholder="Problem Description" ></textarea>
-                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Part To Be Taken</label>
-                    <input type="text" class="form-control required" name="partbtaken" placeholder="Part To Be Taken">
+                    <input type="text" class="form-control required" id="l_part_to_be_taken" name = "l_part_to_be_taken" placeholder="Enter Part To Be Taken" value = "{{htmlValue('l_part_to_be_taken', $data)}}">
                 </div>
             </div>
         </div>
@@ -74,7 +92,7 @@
 </section>
 
 @include('layouts.custom_partials.save_panel')
-</form>
+{!! Form::close() !!}
 
 @endsection
 
@@ -91,7 +109,9 @@
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datetimepicker').datetimepicker();
+            $('.datetimepicker').datetimepicker({ 
+                format: 'YYYY-MM-DD HH:mm:ss'
+            });
         });
     </script>
 
