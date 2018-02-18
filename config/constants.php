@@ -15,6 +15,18 @@ return [
 	'Inwards'=> [
 	    'table' => 'inwards',
 	    'prefix' => 'i_'
+	],
+	'Outwards'=> [
+	    'table' => 'outwards',
+	    'prefix' => 'o_'
+	],
+	'Log'=> [
+	    'table' => 'logs',
+	    'prefix' => 'l_'
+	],
+	'Callcomplete'=> [
+	    'table' => 'callcomplete',
+	    'prefix' => 'cc_'
 	]
 
 ];

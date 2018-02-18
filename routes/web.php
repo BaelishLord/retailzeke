@@ -27,6 +27,9 @@ Route::get('/test/create', 'TestController@create')->name('testcreate');
 Route::resource('/customer', 'CustomerController');
 Route::resource('/vendor', 'VendorController');
 Route::resource('/inwards', 'InwardsController');
+Route::resource('/outwards', 'OutwardsController');
+Route::resource('/log', 'LogController');
+Route::resource('/callcomplete', 'CallCompleteController');
 
 //-------------------------------------Master-----------------------------------------// 
 	// customer routes
@@ -44,8 +47,8 @@ Route::resource('/inwards', 'InwardsController');
 	// Route::get('/inwards/create', 'InwardsController@create')->name('inwardscreate');
 
 	// outwards routes
-	Route::get('/outwards', 'OutwardsController@index')->name('outwards');
-	Route::get('/outwards/create', 'OutwardsController@create')->name('outwardscreate');
+	// Route::get('/outwards', 'OutwardsController@index')->name('outwards');
+	// Route::get('/outwards/create', 'OutwardsController@create')->name('outwardscreate');
 
 	// quotation routes
 	Route::get('/quotation', 'QuotationController@index')->name('quotation');
@@ -58,12 +61,12 @@ Route::resource('/inwards', 'InwardsController');
 
 //-------------------------------------Logs-----------------------------------------// 
 	// Logs
-	Route::get('/log', 'LogController@index')->name('log');
-	Route::get('/log/create', 'LogController@create')->name('logcreate');
+	// Route::get('/log', 'LogController@index')->name('log');
+	// Route::get('/log/create', 'LogController@create')->name('logcreate');
 
 	// call complete
-	Route::get('/callcomplete', 'CallCompleteController@index')->name('callcomplete');
-	Route::get('/callcomplete/create', 'CallCompleteController@create')->name('callcompletecreate');
+	// Route::get('/callcomplete', 'CallCompleteController@index')->name('callcomplete');
+	// Route::get('/callcomplete/create', 'CallCompleteController@create')->name('callcompletecreate');
 //-------------------------------------Logs-----------------------------------------// 
 
 //-------------------------------------Maintainance-----------------------------------------// 
