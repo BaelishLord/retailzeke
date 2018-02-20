@@ -29,10 +29,12 @@
 @section('main-content')
 
 @if (Request::segment(4))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
+    {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
+
 <input type="hidden" name="screen_name" value = "{{(isset($data) && isset($data['screen_name'])) ? $data['screen_name'] : ''}}">
-<form id="validateForm" action="#" method="post">
 
 <section class="panel">
     <div class="panel-body">
@@ -40,7 +42,7 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Type</label>
-                    <select class="form-control required" name="type">
+                    <select class="form-control required" id="m_type" name = "m_type">
                         <option value="">--Please Select--</option>
                         <option value="amc">AMC</option>
                         <option value="antivirus">Antivirus</option>
@@ -48,39 +50,61 @@
                         <option value="warranty">Warranty Maintainance</option>
                     </select>
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Party Name</label>
-                    <input type="text" class="form-control required" name="partyname" placeholder="Party Name">
+                    <input type="text" class="form-control required" id="m_name" name = "m_name" placeholder="Enter Party Name" value = "{{htmlValue('m_name', $data)}}">
                 </div>
-                <div class="form-group">
-                    <label>Product Serial Number</label>
-                    <input type="text" class="form-control required" name="poductid" placeholder="Product Serial Number">
-                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>From Date</label>
-                    <input type="text" class="form-control datetimepicker required" name="fromdate" placeholder="From Date">
+                    <input type="text" class="form-control datepicker required" id="m_from_date" name = "m_from_date" placeholder="Enter From Date" value = "{{htmlValue('m_from_date', $data)}}">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>To Date</label>
-                    <input type="text" class="form-control datetimepicker required" name="todate" placeholder="To Date">
+                    <input type="text" class="form-control datepicker required" id="m_to_date" name = "m_to_date" placeholder="Enter To Date" value = "{{htmlValue('m_to_date', $data)}}">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Product Serial Number</label>
+                    <input type="text" class="form-control required" id="m_product_serial_number" name = "m_product_serial_number" placeholder="Enter Product Serial Number" value = "{{htmlValue('m_product_serial_number', $data)}}">
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" class="form-control required" name="quantity" placeholder="Quantity">
+                    <input type="number" class="form-control required number" id="m_quantity" name = "m_quantity" placeholder="Enter Quantity" value = "{{htmlValue('m_quantity', $data)}}">
                 </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Sub Total</label>
-                    <input type="number" class="form-control required" name="subtotal" placeholder="Sub Total">
+                    <input type="number" class="form-control required number" id="m_subtotal" name = "m_subtotal" placeholder="Enter Sub Total" value = "{{htmlValue('m_subtotal', $data)}}">
                 </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Taxes</label>
-                    <input type="text" class="form-control required" name="taxes" placeholder="Taxes">
+                    <input type="text" class="form-control required" id="m_taxes" name = "m_taxes" placeholder="Enter Taxes" value = "{{htmlValue('m_taxes', $data)}}">
                 </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
                 <div class="form-group">
                     <label>Total</label>
-                    <input type="number" class="form-control required" name="total" placeholder="Total">
+                    <input type="number" class="form-control required number" id="m_total" name = "m_total" placeholder="Enter Total" value = "{{htmlValue('m_total', $data)}}">
                 </div>
             </div>
         </div>
@@ -88,7 +112,7 @@
 </section>
 
 @include('layouts.custom_partials.save_panel')
-</form>
+{!! Form::close() !!}
 
 @endsection
 
@@ -105,7 +129,7 @@
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datepicker').datepicker();
+            $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
         });
     </script>
 

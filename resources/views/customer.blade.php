@@ -30,7 +30,7 @@
             <div class = "pull-right">
                 <div class = "btn-group">
                     <a href="/{{Request::path()}}/create">
-                        <button type="button" class="btn btn-sharekhan" data-original-title="Add Users" data-original-title="Add Users" data-toggle="tooltip" data-target="" title="Add Users" data-original-title="Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}">
+                        <button type="button" class="btn btn-sharekhan" data-original-title="Add Customers" data-original-title="Add Customers" data-toggle="tooltip" data-target="" title="Add Customers" data-original-title="Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}</button>
                     </a>
                 </div>
