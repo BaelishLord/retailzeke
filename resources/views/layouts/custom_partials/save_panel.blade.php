@@ -2,7 +2,7 @@
 @if (Route::currentRouteName() != Request::segment(2).".show")
 <section class="panel">
     <div class="panel-body">
-        @if (Request::segment(4))
+        @if (Request::segment(3))
                             
         @else
             <div class="btn-group">

@@ -242,11 +242,11 @@ function update($model, array $data, $id, $attribute="id") {
  */
  function fillUpdate($model, array $data, $id, $attribute = "id") {
     // dd($model);
-    $mod = checkModule($model);
-    if(isset($mod) && isset($mod['mod']) && isset($mod['mod'][0])) {
-        $prefix = config('constants.'.$mod['mod'][0].'.prefix');
-    }
-    $preimage = auditPreImage($model, $id, $attribute, $prefix);
+    // $mod = checkModule($model);
+    // if(isset($mod) && isset($mod['mod']) && isset($mod['mod'][0])) {
+    //     $prefix = config('constants.'.$mod['mod'][0].'.prefix');
+    // }
+    // $preimage = auditPreImage($model, $id, $attribute, $prefix);
 
     $res = "";
     try {
@@ -259,12 +259,12 @@ function update($model, array $data, $id, $attribute="id") {
         abortPage();
     }
 
-    $common_result = auditCommon($res, 2, $prefix);
-    $post_result = auditPostImage($res, $prefix);
-    $result = array_merge($common_result, $post_result, $preimage);
+    // $common_result = auditCommon($res, 2, $prefix);
+    // $post_result = auditPostImage($res, $prefix);
+    // $result = array_merge($common_result, $post_result, $preimage);
 
-    $modelNameSpace = "\\App\\Models\\Audit\\".$mod['mod'][0];
-    $audit_res = $modelNameSpace::create($result);
+    // $modelNameSpace = "\\App\\Models\\Audit\\".$mod['mod'][0];
+    // $audit_res = $modelNameSpace::create($result);
     // dd($audit_res);
     return ['res', $res];
 }
