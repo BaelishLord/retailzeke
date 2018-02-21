@@ -56,7 +56,7 @@ class PurchaseController extends Controller
         
         // return getColumnList($this->purchase);
         $data['columns'] = excludeColumn(getColumnList($this->purchase), []); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], []);
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
         $data['pk'] = Purchase::getKeyField();
         $data['prefix'] = config('constants.Purchase.prefix');
@@ -94,5 +94,29 @@ class PurchaseController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Puchase::find($id);
+        // return $data;
+        return view('purchasecreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->purchase, $data, $id, Puchase::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }

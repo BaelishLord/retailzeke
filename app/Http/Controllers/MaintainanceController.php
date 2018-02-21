@@ -53,7 +53,7 @@ class MaintainanceController extends Controller
         
         // return getColumnList($this->maintainance);
         $data['columns'] = excludeColumn(getColumnList($this->maintainance), []); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], []);
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
         $data['pk'] = Maintainance::getKeyField();
         $data['prefix'] = config('constants.Maintainance.prefix');
@@ -91,5 +91,29 @@ class MaintainanceController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Maintainance::find($id);
+        // return $data;
+        return view('maintainancecreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->maintainance, $data, $id, Maintainance::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }

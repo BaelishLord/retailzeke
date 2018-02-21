@@ -51,7 +51,7 @@ class LogController extends Controller
         
         // return getColumnList($this->log);
         $data['columns'] = excludeColumn(getColumnList($this->log), []); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], []);
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
         $data['pk'] = Log::getKeyField();
         $data['prefix'] = config('constants.Log.prefix');
@@ -89,5 +89,29 @@ class LogController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Log::find($id);
+        // return $data;
+        return view('logcreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->log, $data, $id, Log::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }

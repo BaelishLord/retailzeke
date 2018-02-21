@@ -52,7 +52,7 @@ class OutwardsController extends Controller
         
         // return getColumnList($this->outwards);
         $data['columns'] = excludeColumn(getColumnList($this->outwards), ['orderby']); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], ['order_by']);
+        $data['columns'] = array_merge(['action'], $data['columns'], ['order_by']);
         
         $data['pk'] = Outwards::getKeyField();
         $data['prefix'] = config('constants.Outwards.prefix');
@@ -90,5 +90,29 @@ class OutwardsController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Outwards::find($id);
+        // return $data;
+        return view('outwardscreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->outwards, $data, $id, Outwards::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }

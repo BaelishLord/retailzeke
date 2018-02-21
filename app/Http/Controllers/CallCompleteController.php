@@ -47,7 +47,7 @@ class CallCompleteController extends Controller
         
         // return getColumnList($this->callcomplete);
         $data['columns'] = excludeColumn(getColumnList($this->callcomplete), ['status']); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], ['call_status']);
+        $data['columns'] = array_merge(['action'], $data['columns'], ['call_status']);
         
         $data['pk'] = Callcomplete::getKeyField();
         $data['prefix'] = config('constants.Callcomplete.prefix');
@@ -85,5 +85,29 @@ class CallCompleteController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Callcomplete::find($id);
+        // return $data;
+        return view('callcompletecreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->callcomplete, $data, $id, Callcomplete::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }
