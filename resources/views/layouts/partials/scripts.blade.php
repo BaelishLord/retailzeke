@@ -44,7 +44,6 @@
 <script src="{{ asset('/js/common/function.js') }}" type="text/javascript"></script>
 <script src="{{ asset('/js/common/datatable_function.js') }}" type="text/javascript"></script>
 
-
 <?php
     $js_data['env'] = env('APP_ENV');
 	$js_data['errors'] = (isset($errors) && count($errors) > 0) ? $errors->toArray() : [];
