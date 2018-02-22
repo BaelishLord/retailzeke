@@ -2,15 +2,15 @@
 <html>
 
 @section('htmlheader')
-    @include('layouts.partials.htmlheader')
+    @include('layouts.partials.htmlheaderwrap')
 @show
 
 <body class="hold-transition skin-purple layout-boxed">
 <div class="wrapper">
 
-    @include('layouts.partials.mainheader')
+    @include('layouts.partials.mainheaderwrap')
 
-    @include('layouts.partials.sidebar')
+    @include('layouts.partials.sidebarwrap')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -533,15 +533,15 @@
     </div>
 
 
-    @include('layouts.partials.footer')
+    @include('layouts.partials.footerwrap')
     
-    @include('layouts.partials.controlsidebar')    
+    @include('layouts.partials.controlsidebarwrap')    
 
 </div>
 <!-- ./wrapper -->
 
 @section('scripts')
-    @include('layouts.partials.scripts')
+    @include('layouts.partials.scriptswrap')
 @show
 
 </body>
