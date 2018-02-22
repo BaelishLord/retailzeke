@@ -68,8 +68,7 @@
         $js_data['env'] = env('APP_ENV');
         $js_data['columns'] = $data['columns'];
         $js_data['pk'] = $data['pk'];
-        $js_data['status'] = config('constants.STATUS');
-        $js_data['color'] = config('constants.COLOR_GENERAL');
+        $js_data['prefix'] = $data['prefix'];
     ?>
 @endsection
 
@@ -81,8 +80,23 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            var action_obj = [];
-
+            var action_obj = [{
+                class : "",
+                title : "Edit",
+                url : "/edit",
+                href : true,
+                i : {
+                    class : "fa fa-pencil"
+                }
+            }, {
+                class : "",
+                title : "Delete",
+                url : "",
+                href : false,
+                i : {
+                    class : "fa fa-trash"
+                }
+            }];
             var datatable_object = {
                 table_name : $('table').attr('id'),
                 order : {

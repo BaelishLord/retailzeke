@@ -54,7 +54,7 @@ class InwardsController extends Controller
         
         // return getColumnList($this->inwards);
         $data['columns'] = excludeColumn(getColumnList($this->inwards), []); // Array to be excluded.
-        $data['columns'] = array_merge([], $data['columns'], []);
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
         $data['pk'] = Inwards::getKeyField();
         $data['prefix'] = config('constants.Inwards.prefix');
@@ -92,5 +92,29 @@ class InwardsController extends Controller
             return redirect('/'.$request->path());
         }
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Inwards::find($id);
+        // return $data;
+        return view('inwardscreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->inwards, $data, $id, Inwards::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }

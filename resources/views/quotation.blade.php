@@ -26,11 +26,11 @@
 @section('main-content')
 
     <div class="panel">
-		<div class="panel-heading ">   
+        <div class="panel-heading ">   
             <div class = "pull-right">
                 <div class = "btn-group">
                     <a href="/{{Request::path()}}/create">
-                        <button type="button" class="btn btn-sharekhan" data-original-title="Add Users" data-original-title="Add Users" data-toggle="tooltip" data-target="" title="Add Users" data-original-title="Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}">
+                        <button type="button" class="btn btn-sharekhan" data-original-title="Add Quotation" data-original-title="Add Quotation" data-toggle="tooltip" data-target="" title="Add Quotation" data-original-title="Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add {{ucwords(str_replace('-', ' ', Request::segment(2)))}}</button>
                     </a>
                 </div>
@@ -76,12 +76,28 @@
 @section('custom-scripts')
 
     @include('layouts.script_loaders.datatable_loader')
-    @include('layouts.script_loaders.excel_loader')    
+    @include('layouts.script_loaders.excel_loader')
 
     <script type="text/javascript">
         $(document).ready(function() {
-            
-            var action_obj = [];
+
+            var action_obj = [{
+                class : "",
+                title : "Edit",
+                url : "/edit",
+                href : true,
+                i : {
+                    class : "fa fa-pencil"
+                }
+            }, {
+                class : "",
+                title : "Delete",
+                url : "",
+                href : false,
+                i : {
+                    class : "fa fa-trash"
+                }
+            }];
 
             var datatable_object = {
                 table_name : $('table').attr('id'),
@@ -113,9 +129,7 @@
             }
 
             table = datatableInitWithButtonsAndDynamicRev(datatable_object);
-            
-            changeRowColorGeneral("thead_status" ,{"open":lang.color.OPEN, "active": lang.color.ACTIVE, "inactive":lang.color.INACTIVE, "closed":lang.color.CLOSED}, table);
-            
+                        
             statusChange();
 
         });

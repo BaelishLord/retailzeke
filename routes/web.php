@@ -28,8 +28,11 @@ Route::resource('/customer', 'CustomerController');
 Route::resource('/vendor', 'VendorController');
 Route::resource('/inwards', 'InwardsController');
 Route::resource('/outwards', 'OutwardsController');
+Route::resource('/quotation', 'QuotationController');
+Route::resource('/purchase', 'PurchaseController');
 Route::resource('/log', 'LogController');
 Route::resource('/callcomplete', 'CallCompleteController');
+Route::resource('/maintainance', 'MaintainanceController');
 
 //-------------------------------------Master-----------------------------------------// 
 	// customer routes
@@ -51,12 +54,12 @@ Route::resource('/callcomplete', 'CallCompleteController');
 	// Route::get('/outwards/create', 'OutwardsController@create')->name('outwardscreate');
 
 	// quotation routes
-	Route::get('/quotation', 'QuotationController@index')->name('quotation');
-	Route::get('/quotation/create', 'QuotationController@create')->name('quotationcreate');
+	// Route::get('/quotation', 'QuotationController@index')->name('quotation');
+	// Route::get('/quotation/create', 'QuotationController@create')->name('quotationcreate');
 
 	// purchase order routes
-	Route::get('/purchase', 'PurchaseController@index')->name('purchase');
-	Route::get('/purchase/create', 'PurchaseController@create')->name('purchasecreate');
+	// Route::get('/purchase', 'PurchaseController@index')->name('purchase');
+	// Route::get('/purchase/create', 'PurchaseController@create')->name('purchasecreate');
 //-------------------------------------Process-----------------------------------------// 
 
 //-------------------------------------Logs-----------------------------------------// 
@@ -70,6 +73,6 @@ Route::resource('/callcomplete', 'CallCompleteController');
 //-------------------------------------Logs-----------------------------------------// 
 
 //-------------------------------------Maintainance-----------------------------------------// 
-	Route::get('/maintainance', 'MaintainanceController@index')->name('maintainance');
-	Route::get('/maintainance/create', 'MaintainanceController@create')->name('maintainancecreate');
+	// Route::get('/maintainance', 'MaintainanceController@index')->name('maintainance');
+	// Route::get('/maintainance/create', 'MaintainanceController@create')->name('maintainancecreate');
 //-------------------------------------Maintainance-----------------------------------------// 

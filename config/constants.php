@@ -20,6 +20,14 @@ return [
 	    'table' => 'outwards',
 	    'prefix' => 'o_'
 	],
+	'Quotation'=> [
+	    'table' => 'quotation',
+	    'prefix' => 'q_'
+	],
+	'Purchase'=> [
+	    'table' => 'purchase',
+	    'prefix' => 'p_'
+	],
 	'Log'=> [
 	    'table' => 'logs',
 	    'prefix' => 'l_'
@@ -27,6 +35,10 @@ return [
 	'Callcomplete'=> [
 	    'table' => 'callcomplete',
 	    'prefix' => 'cc_'
+	],
+	'Maintainance'=> [
+	    'table' => 'Maintainance',
+	    'prefix' => 'm_'
 	]
 
 ];

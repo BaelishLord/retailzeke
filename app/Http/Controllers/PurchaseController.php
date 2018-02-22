@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+// use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
-use Datatables;
+use DataTables;
+use App\Models\Purchase;
 use App\Models\User;
 
 class PurchaseController extends Controller
@@ -13,9 +15,10 @@ class PurchaseController extends Controller
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Purchase $purchase, User $user)
     {
         $this->middleware('auth');
+        $this->purchase = $purchase;
         $this->user = $user;
     }
 
@@ -26,54 +29,94 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
+
+        // dd(Config::get('constants.Purchase.prefix'));
         if ($request->ajax()) {
+            // dd($request->ajax());
+
             $data =  execSelect("
-                    SELECT 
-                        u.id,
-                        u.name AS name,
-                        u.email AS email,
-                        REPLACE(GROUP_CONCAT(concat('<span class = \'label bg-sharekhan\'>',r.name,'</span>')), ',', ' ') AS role,
-                        sc.code_desc AS status
-                    FROM
-                        users u
-                            LEFT JOIN
-                        (SELECT 
-                            sc.code_id, sc.code_desc, sc.code_val
-                        FROM
-                            system_codes sc
-                        WHERE
-                            code_id = ?) sc ON u.status = sc.code_val
-                            LEFT JOIN
-                        (SELECT 
-                            ru.id, r.name, ru.user_id
-                        FROM
-                            role_user ru
-                        LEFT JOIN roles r ON ru.role_id = r.id) AS r ON u.id = r.user_id
-                    GROUP BY u.id
-                    ORDER BY u.id DESC;", [config('constants.CODE_ID_STATUS')]);
+                    SELECT purchase_id,
+                            p_name as name,
+                            DATE_FORMAT(p_purchase_date, '%W %M %e %Y') as purchase_date,
+                            p_address as address,
+                            p_contact_number as contact_number,
+                            p_reference as reference,
+                            p_quantity as quantity,
+                            p_rate as rate,
+                            p_subtotal as subtotal,
+                            p_taxes as taxes,
+                            p_product_description as product_description,
+                            p_total as total,
+                            p_warranty as warranty
+                        FROM purchase;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
         }
         
-
-
-        $data['columns'] = excludeColumn(getColumnList($this->user), ['emp_id']); // Array to be excluded.
-        $data['columns'] = array_merge(['user_action', 'role'], $data['columns'], []);
+        // return getColumnList($this->purchase);
+        $data['columns'] = excludeColumn(getColumnList($this->purchase), []); // Array to be excluded.
+        $data['columns'] = array_merge(['action'], $data['columns'], []);
         
-        $data['pk'] = User::getKeyField();
+        $data['pk'] = Purchase::getKeyField();
+        $data['prefix'] = config('constants.Purchase.prefix');
 
         $data['disable_footer_column'] = ['action'];
         $data['disable_footer_search'] = [];
+
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
-
         return view('purchase', ['data' => $data]);
     }
 
 
     public function create() 
     {
-        return view('purchasecreate');
+        $data['user'] = [];
+        $data['screen_name'] = 'purchase';
+        return view('purchasecreate', ['data' => $data]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $save_cond =  $request->save;
+        
+        beginTransaction();
+
+        $response = create($this->purchase, $data);
+
+        commit();
+
+        if ($save_cond == "save_continue") {
+            return redirect('/'.$request->path().'/create');
+        } else {
+            return redirect('/'.$request->path());
+        }
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = Puchase::find($id);
+        // return $data;
+        return view('purchasecreate', ['data' => $data]);
+    }
+
+    public function update(Request $request, $id) 
+    {
+        $data = $request->all();
+        // return $data;
+        beginTransaction();
+            fillUpdate($this->purchase, $data, $id, Puchase::getKeyField());
+        commit();
+
+        return redirect('/'.$request->segment(1));
     }
 }
