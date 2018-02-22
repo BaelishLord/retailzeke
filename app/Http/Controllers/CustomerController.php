@@ -30,9 +30,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
 
-        // dd(Config::get('constants.Customer.prefix'));
+        // dd(1);
         if ($request->ajax()) {
-            // dd($request->ajax());
 
             $data =  execSelect("
                     SELECT customers_id,
@@ -46,17 +45,19 @@ class CustomerController extends Controller
                         FROM customers;", []);
 
             $data = collect($data);
+            // dd($data);
             return Datatables::of($data)->make(true);
+
         }
         
         // return getColumnList($this->customer);
         $data['columns'] = excludeColumn(getColumnList($this->customer), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Customer::getKeyField();
         $data['prefix'] = config('constants.Customer.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);

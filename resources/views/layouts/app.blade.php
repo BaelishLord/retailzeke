@@ -6,7 +6,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="{{ app()->getLocale() }}">
 
 @section('htmlheader')
-    @include('layouts.partials.htmlheader')
+    @include('layouts.partials.htmlheaderwrap')
 @show
 
 <!--
@@ -31,14 +31,14 @@ desired effect
 -->
 <body class="hold-transition skin-purple layout-boxed">
 <div class="wrapper">
-    @include('layouts.partials.mainheader')
+    @include('layouts.partials.mainheaderwrap')
 
-    @include('layouts.partials.sidebar')
+    @include('layouts.partials.sidebarwrap')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" >
         
-        @include('layouts.partials.contentheader')
+        @include('layouts.partials.contentheaderwrap')
 
         <!-- Main content -->
         <section class="content">
@@ -47,15 +47,15 @@ desired effect
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
-    @include('layouts.partials.footer')
+    @include('layouts.partials.footerwrap')
 
-    @include('layouts.partials.controlsidebar')
+    @include('layouts.partials.controlsidebarwrap')
 
 </div><!-- ./wrapper -->
 
 @section('scripts')
-    @include('layouts.partials.scripts')
-    @include('layouts.custom_partials.error_partial')
+    @include('layouts.partials.scriptswrap')
+    @include('layouts.custom_partials.error_partialwrap')
 @show
 
 </body>

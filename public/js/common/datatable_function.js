@@ -42,102 +42,73 @@ function datatableInitWithButtonsAndDynamicRev(obj) {
     var button_dom = "";
     var buttons = [];
     
-    
-    if (obj.buttons.state) {
-        button_dom = "<'row'<'col-sm-12 bottom-buffer'B>>";
-        if (obj.buttons.colvis) {
-            buttons[0] = 'colvis'
-        }
+// to be uncommented to use for excel and pdf buttons    
+    // if (obj.buttons.state) {
+    //     button_dom = "<'row'<'col-sm-12 bottom-buffer'B>>";
+    //     if (obj.buttons.colvis) {
+    //         buttons[0] = 'colvis'
+    //     }
         
-        if (obj.buttons.excel.state) {
-            buttons[1] = {
+    //     if (obj.buttons.excel.state) {
+    //         buttons[1] = {
 
-                extend: 'excelHtml5',
-                // { extend: 'excelHtml5', 
-                // customize: function(xlsx) { 
-                //     var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                //     console.log(sheet);
-                //     // Loop over the cells in column `F` 
-                //     $('row c[r^="A"]', sheet).each( function () { 
-                //         console.log(this);
-                //     // Get the value and strip the non numeric characters .replace(/[^\d]/g, '')
-                //         var text = $('is t', this).text();
-                //         console.log('text front', $('is t', this).text(), 'text data', $('is t', this).text().replace(text, "'"+text)); 
-                //         // if ( $('is t', this).text().replace(/[^\d]/g, '') * 1 >= 50000 ) { 
-                //         //     $(this).attr( 's', '20' ); 
-                //         // }
-                //         $('is t', this).text().replace(text, "'"+text)
-                //     }); 
-                // },
-                exportOptions: {
-                    //to remove first column from export
-                    // columns: function ( idx, data, node ) {
-                    //     var action_col = $('thead th').index($('.thead_action'));
-                    //     var isVisible = table.column( idx ).visible();
-                    //    console.log(isVisible)
-                    //     var isNotForExport = $.inArray( idx, action_col ) !== -1;
-                       
-                    //     return isVisible && !isNotForExport ? true : false;
-                    // },
-                    columns: obj.buttons.excel.columns,
-                    // exclude: [ 0 ],
-                    format: {
-                        body: function ( data, column, row, node ) {
-                            if ($(node).length) {
-                                var status_col = $('thead th').index($('.thead_status'));
-                                var action_col = $('thead th').index($('.thead_action'));
-                                // console.log(status_col, action_col,$(node)[0].cellIndex)
-                                if ($(node)[0].cellIndex == status_col) {
-                                    return $($(node)).find('.label').text();
-                                } else if ($(node)[0].cellIndex == action_col) {
-                                    return ;
-                                } else {
-                                    if (typeof (data) == "number") {
-                                        return data;
-                                    } else {
-                                        //added another replace to avoid execution of csv injection --AG 030817
-                                        return data.replace(/<\/?[^>]+(>|$)/g, "").replace(data, "'" + data);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (obj.buttons.pdf.state) {
-            buttons[2] = {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'LEGAL',
-                exportOptions: {
-                    columns: obj.buttons.pdf.columns,
+    //             extend: 'excelHtml5',
+    //             exportOptions: {
+    //                 columns: obj.buttons.excel.columns,
+    //                 format: {
+    //                     body: function ( data, column, row, node ) {
+    //                         if ($(node).length) {
+    //                             var status_col = $('thead th').index($('.thead_status'));
+    //                             var action_col = $('thead th').index($('.thead_action'));
+    //                             if ($(node)[0].cellIndex == status_col) {
+    //                                 return $($(node)).find('.label').text();
+    //                             } else if ($(node)[0].cellIndex == action_col) {
+    //                                 return ;
+    //                             } else {
+    //                                 if (typeof (data) == "number") {
+    //                                     return data;
+    //                                 } else {
+    //                                     return data.replace(/<\/?[^>]+(>|$)/g, "").replace(data, "'" + data);
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     if (obj.buttons.pdf.state) {
+    //         buttons[2] = {
+    //             extend: 'pdfHtml5',
+    //             orientation: 'landscape',
+    //             pageSize: 'LEGAL',
+    //             exportOptions: {
+    //                 columns: obj.buttons.pdf.columns,
                     
-                    format: {
-                        body: function ( data, column, row, node ) {
-                            if ($(node).length) {
-                                var status_col = $('thead th').index($('.thead_status'));
-                                var action_col = $('thead th').index($('.thead_action'));
-                                // console.log(status_col, action_col,$(node)[0].cellIndex)
-                                if ($(node)[0].cellIndex == status_col) {
-                                    return $($(node)).find('.label').text();
-                                } else if ($(node)[0].cellIndex == action_col) {
-                                    return ;
-                                } else {
-                                    if (typeof (data) == "number") {
-                                        return data
-                                    } else {
-                                        return data.replace(/<\/?[^>]+(>|$)/g, "");
-                                    }
-                                }
-                            }
-                            // return data;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //                 format: {
+    //                     body: function ( data, column, row, node ) {
+    //                         if ($(node).length) {
+    //                             var status_col = $('thead th').index($('.thead_status'));
+    //                             var action_col = $('thead th').index($('.thead_action'));
+    //                             // console.log(status_col, action_col,$(node)[0].cellIndex)
+    //                             if ($(node)[0].cellIndex == status_col) {
+    //                                 return $($(node)).find('.label').text();
+    //                             } else if ($(node)[0].cellIndex == action_col) {
+    //                                 return ;
+    //                             } else {
+    //                                 if (typeof (data) == "number") {
+    //                                     return data
+    //                                 } else {
+    //                                     return data.replace(/<\/?[^>]+(>|$)/g, "");
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     datatableObj.buttons = buttons;
     datatableObj.info = obj.info;
     datatableObj.paging = obj.paging;
@@ -236,7 +207,7 @@ function generateHeaderCheckbox() {
 function datatableColumn(arr, action_obj = [], pk = "id") {
     var obj = [];
     arr.forEach(function(k) {
-        if (k == "action" || k == "all" || k == "expand" || k == "event_operation" || k == "lead_operation" || k == "batch_action" || k == "leadbatch" || k == 'user_action') {
+        if (k == "activity" || k == "all" || k == "expand" || k == "event_operation" || k == "lead_operation" || k == "batch_action" || k == "leadbatch" || k == 'user_action') {
             obj.push(action(action_obj, pk, k))
         } else if (k == "status") {
             obj.push(status(k))
@@ -251,37 +222,13 @@ function datatableColumn(arr, action_obj = [], pk = "id") {
     function action(action_obj, pk, view_type) {
         // console.log(view_type);
         return {
-            "data": "action",
+            "data": "activity",
             "searchable": false,
 
             "sortable": false,
             "render": function (data, type, full, meta) {  
-                if (view_type == "action") {
-                    return generateActionIcons(action_obj, full, pk);
-                } 
-                if (view_type == "event_operation") {
-                    return generateEventRequestActionIcons(action_obj, full, pk);
-                }
-                if (view_type == "expand") {
-                    return generateImageIcon(pk, full);
-                }
-                if (view_type == "all") {
-                    return generateCheckbox(pk, full);
-                }
-                if (view_type == "lead_operation") {
-                    return generateLeadRequestActionIcons(action_obj, full, pk);  
-                }
-                if (view_type == "batch_action") {
-                    return generateBatchRequestActionIcons(action_obj, full, pk);
-                }
-                if (view_type == "call_action") {
-                    return generateCallRequestActionIcons(action_obj, full, pk);
-                }
-                if(view_type == "leadbatch"){
-                   return generateLeadBatchRequestActionIcons(action_obj, full, pk); 
-                }
-                if(view_type == "user_action"){
-                   return generateUserActionIcons(action_obj, full, pk); 
+                if (view_type == "activity") {
+                    return generateActivityIcons(action_obj, full, pk);
                 }
             }
         }
@@ -382,491 +329,7 @@ function datatableColumn(arr, action_obj = [], pk = "id") {
         return $(d).get(0).outerHTML;
     }
 
-    //generating icons for event module
-    function generateEventRequestActionIcons(ob, full, pk) {
-        var status = full.request_status_id;
-        var claim_status = full.claim_flag;
-        var event_status = full.event_raise;
-        var claim_flag = full.claim_flag;
-        // console.log(claim_flag);
-        var str = "";
-        // console.log(status, full.event_details_id,'Process');
-        var d = new Date().getTime();
-        var event_date = new Date(full.event_start).getTime();
-        $.each(ob, function(k, v) {
-
-            //approval of claims to be ignored
-            if(lang.screen_name === "claim_incentives_index" && claim_status !== "approved") {
-                if(v.class === "claim_approve" && claim_flag != "rejected") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 1) {
-                if (v.class == "view_event" || v.class == "in_loop" || (v.class == "process" && full.event_process_flag == 1) ) {
-                    generate(k, v, full, pk);
-                }
-            }
-            if (status == 2) {
-                if ((v.class == "schedule" && full.event_schedule_i != 0) || v.class == "view_event" || v.class == "in_loop") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 3) {
-                if (v.class == "view_event") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 4) {
-                if (v.class == "scheduleConfirm" || v.class == "view_event") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 5) {
-                
-            }
-
-            if (status == 6) {
-
-            }
-
-            if (status == 7) {
-                if ((v.class == "assets" && full.event_assets_i != 0) || v.class == "adminAssets" || v.class == "view_event") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 8) {
-                if ((v.class == "assets" && full.event_assets_i != 0 )|| v.class == "adminAssets" || v.class == "view_event" || v.class == "eventFullEdit" || v.class == "eventFullReject") {
-                    generate(k, v, full, pk);
-                }
-            }
-            // if (status == 8) {
-            //     if ((v.class == "assets" && full.event_assets_i != 0 )|| v.class == "adminAssets" || v.class == "view_event" ||v.class == "eventFullReject") {
-            //         generate(k, v, full, pk);
-            //     }
-            //     if(event_date >= d)
-            //     {
-            //         if(v.class == "eventFullEdit")
-            //         {
-            //             generate(k, v, full, pk);
-            //         }
-            //     }
-            // }
-
-            if (status == 9) {
-                if(v.class == "assetsConfirm" || v.class == "adminAssets" || v.class == "view_event"){
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 10) {
-                if(v.class == "view_event" ||  v.class == "adminAssets"){
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 12) {
-                if(v.class == "view_event"){
-                    generate(k, v, full, pk);
-                }   
-            }
-
-            if (status == 13) {
-                if(v.class == "view_event" || (v.class == "schedule" && full.event_schedule_i != 0  )){
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 14) {
-                if(v.class == "view_event") {
-                    generate(k, v, full, pk);
-                }
-            }
-
-            if (status == 15) {
-                // console.log(full.pstatus)
-                if(v.class == "eventFullEdit" || v.class == "view_event" || v.class == "adminAssets" || (v.class == "assets" && full.event_assets_i != 0)) {
-                    generate(k, v, full, pk);
-                }
-            }
-            if (status == 17) {
-                // console.log(full.pstatus)
-                if(v.class == "eventFullEdit" || v.class == "assetsConfirm" || v.class == "view_event" || v.class == "adminAssets" || (v.class == "assets" && full.event_assets_i != 0)) {
-                    generate(k, v, full, pk);
-                }
-            }
-            // if (status == 15) {
-            //     if(v.class == "view_event") {
-            //         generate(k, v, full, pk);
-            //     }
-            //     if(event_date >= d)
-            //     {
-            //         console.log(event_date, d ,"date")
-            //         if(v.class == "eventFullEdit")
-            //         {
-            //             generate(k, v, full, pk);
-            //         }
-            //     }
-            // }
-
-            function generate(k, v, full, pk) {
-                var a = "";
-                var  o = {};
-                
-                var i = $('<i />', {
-                    class : v.i.class
-                });
-
-                o['class'] = v.class;
-                o['title'] = v.title;
-                o['data-original-title'] = v.title;
-                o['data-id'] = full[pk];
-                o['data-url'] = window.location.href+'/'+full[pk]+v.url;
-                if (v.href) {
-                    o['href'] = window.location.href+'/'+full[pk]+v.url;
-                }
-                o['html'] = i;
-                a = $('<a />', o);
-                
-                str += $(a).get(0).outerHTML;
-            }
-        })
-
-        return str;
-    }
-
-    function generateLeadBatchRequestActionIcons(ob, full, pk){
-        var mentorname = full.mmr_name;
-        var batchid = full.batch_name;
-        var hours = full.hours;
-        var profiling = full.profiling_flag;
-        var call_history = full.call_history;
-        var batch_change_request_flag = full.batch_change_request_flag;
-        var str = "";
-        // console.log(call_history);
-        $.each(ob, function(k, v) {
-            if (v.class === 'trade' || (v.class === 'batch-call-logger' && (mentorname == null || mentorname == undefined ) && batchid == null && (call_history == null || call_history != "Answered" )) || (v.class === "client-profile" && profiling == 'Activate' )|| v.class === "resend-email" || (v.class === "request_change" &&  ((mentorname != null ||mentorname != 0) && (batchid != null || batchid != 0 ) && batch_change_request_flag != "Request" )) ) {
-                generate(k, v, full, pk);
-                // console.log(v)
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-            }
-        });
-
-        return str;
-    }
-
-    function generateUserActionIcons(ob, full, pk){
-        var status = full.status;
-        // console.log(status,'profiling');
-        var str = "";
-        $.each(ob, function(k, v) {
-            if ((v.class == 'edit' && status != 'closed') || v.class == 'view') {
-                generate(k, v, full, pk);
-                // console.log(v)
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-            }
-        });
-
-        return str;
-    }
-
-    //generating icons for lead module
-    function generateLeadRequestActionIcons(ob, full, pk) {
-        var pending_amount_status = $(full.pending_amount).text();
-        var dstatus = full.document_status;
-        var pstatus = full.payment_mode;
-        var sl_recon_status = full.sl_reocn_status;
-        var recon_status = full.recon_status
-        // console.log(sl_recon_status);
-        var discount_flag = full.avail_discount_flag;
-        var str = "";
-        var s2kid = full.s2kid;
-        var signup_objection = full.objection_flag_desc;
-
-        $.each(ob, function(k, v) {
-            if ((v.class == 'UNPAID' && parseInt(pending_amount_status) > 0) || dstatus === v.class || (v.class === "signup_edit" && recon_status != "reconciled" && discount_flag != 2) || (v.class === "cash_slip" && pstatus === "Cash") || v.class === "advance_signup" || (discount_flag == 2  && v.class == 'add_discount') || (v.class == "signup_objection" && s2kid == undefined && (signup_objection == 'No Objection' || signup_objection == 'Objection Removed'))) {
-                generate(k, v, full, pk);
-
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-            }
-        });
-
-        return str;
-    }
-
-    //generating icons for Welcome Call module
-    function generateCallRequestActionIcons(ob, full, pk) {
-        var icon = full.pool_bucket;
-        var str = "";
-        
-        $.each(ob, function(k, v) {
-            if (v.class === "assign_credentials" && icon == 0 ) {
-                
-                generate(k, v, full, pk);
-
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-            }
-        });
-
-        return str;
-    }
-
-    //generating icons for Batch module
-    function generateBatchRequestActionIcons(ob, full, pk) {
-        var icon = full.pool_bucket;
-        var str = "";
-        var username = full.username;
-        var test_id = full.test_id;
-        var batchid = full.batch_name; 
-        var status_mtc = full.status_flag;
-        var ec_bucket = full.ec_bucket;
-        var mtc_signup_flag = full.mtc_signup_flag;
-        // console.log(status_mtc,ec_bucket ,mtc_signup_flag);
-        $.each(ob, function(k, v) {
-            if ((v.class === "assign_credentials" && icon == 0 && test_id == 0) ||(v.class === "send_credentials" && username == null) || (v.class === "batch-call-logger" && status_mtc == 3  && ec_bucket != 0 ) || (v.class === "batch-call-logger-mentor" && status_mtc == 3  && ec_bucket != 0 ) || (v.class === "batch-call-logger-mentor" &&  ec_bucket == 1 || ec_bucket == 0)  || (v.class === "batch-call-logger" &&  ec_bucket == 0) ||(v.class === "signup" && status_mtc == 1 && ec_bucket == 1 && mtc_signup_flag == 0)  || (v.class === "signup_mentor" && status_mtc == 1  &&  ec_bucket == 2 && mtc_signup_flag == 0)|| (v.class === "register_credentials" && batchid != "")) {
-                
-                generate(k, v, full, pk);
-
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-            }
-         else if(v.class === "assign_credentials" && icon != 0 && test_id == 1)
-         {
-            generate(k, v, full, pk);
-
-                function generate(k, v, full, pk) {
-                    var a = "";
-                    var  o = {};
-                    var url = window.location.href;
-                    var params = refineUrl(url);
-                    if(params != "") {
-                        url = url.replace(params, "").replace("?", "");
-                    }
-                    
-                    var i = $('<i />', {
-                        class : v.i.class
-                    });
-
-                    o['class'] = v.class;
-                    o['title'] = v.title;
-                    o['data-original-title'] = v.title;
-                    o['data-id'] = full[pk];
-                    o['data-target'] = v.target;
-                    o['data-toggle'] = v.toggle;
-                    o['data-url'] = url+'/'+full[pk]+v.url;
-                    if (v.href) {
-                        o['href'] = url+'/'+full[pk]+v.url;
-                    }
-                    o['html'] = i;
-                    a = $('<a />', o);
-                    
-                    str += $(a).get(0).outerHTML;
-                }
-                    // to retrive params from url AG 15-04-17
-                    function refineUrl() {
-                        //get full url
-                        var url = window.location.href;
-                        //get url after/
-                        var value = url.substring(url.lastIndexOf('/') + 1);
-                        //get the part after before ?
-                        value  = value.split("?")[1];   
-                        return value;     
-                    }
-         }
-        });
-
-        return str;
-    }
-
-    function generateActionIcons(ob, full, pk) {
+    function generateActivityIcons(ob, full, pk) {
         var icon = full.status_flag;
         // console.log(icon,'status_flag');
         var str = ""
@@ -1001,23 +464,6 @@ function datatableColumn(arr, action_obj = [], pk = "id") {
     }
 
     function changeRowColor(column, value, table_obj,table = "#table") {
-        table_obj.on('draw', function(e) {
-            var val = $(table).find('.'+column);
-            var index = $(table).find('th').index(val);
-            $(table).find('tbody tr').each(function(k,v) {
-
-                var text = $(v).find('td').eq(index).text();
-                $.each(value, function(k1, v1) {
-                    if (text == k1) {
-                        $(v).css('color', v1)
-                    }
-                });
-            })
-        })
-    }
-
-/*To change the row color of lead batch allocation blade if after 24 hour calling is not completed*/
-    function changeBatchRowColor(column1,column2,column3, value, table_obj,table = "#table") {
         table_obj.on('draw', function(e) {
             var val = $(table).find('.'+column);
             var index = $(table).find('th').index(val);

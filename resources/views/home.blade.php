@@ -5,7 +5,7 @@
     @include('layouts.partials.htmlheader')
 @show
 
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-purple layout-boxed">
 <div class="wrapper">
 
     @include('layouts.partials.mainheader')

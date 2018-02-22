@@ -20,7 +20,7 @@
 @endsection
 
 @section('contentheader_description')
-    This is a test template
+
 @endsection
 
 @section('main-content')
