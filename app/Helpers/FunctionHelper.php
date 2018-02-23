@@ -29,3 +29,11 @@ function htmlValue($name, $data) {
 function htmlSelect($name, $data) {
     return \Input::old($name) ? \Input::old($name) : ((isset($data) && isset($data[$name])) ? $data[$name] : null);
 }
+
+function setDisable($name, $disabled) {
+    if (isset($disabled) && is_array($disabled)) {
+        if(in_array($name, $disabled)) {
+            return 'disabled';
+        }
+    }
+}

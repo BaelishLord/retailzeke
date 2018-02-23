@@ -114,4 +114,12 @@ class CustomerController extends Controller
 
         return redirect('/'.$request->segment(1));
     }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->customer, $id, Customer::getKeyField());
+        commit();
+        return "success";
+    }
 }

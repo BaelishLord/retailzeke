@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Inwards;
+use App\Models\Customer;
 use App\Models\User;
 
 class InwardsController extends Controller
@@ -15,11 +16,12 @@ class InwardsController extends Controller
      *
      * @return void
      */
-    public function __construct(Inwards $inwards, User $user)
+    public function __construct(Inwards $inwards, User $user, Customer $customer)
     {
         $this->middleware('auth');
         $this->inwards = $inwards;
         $this->user = $user;
+        $this->customer = $customer;
     }
 
     /**
@@ -54,15 +56,15 @@ class InwardsController extends Controller
         
         // return getColumnList($this->inwards);
         $data['columns'] = excludeColumn(getColumnList($this->inwards), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Inwards::getKeyField();
         $data['prefix'] = config('constants.Inwards.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
-
         
+
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
         return view('inwards', ['data' => $data]);
     }
@@ -72,6 +74,11 @@ class InwardsController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'inwards';
+        $data['disabled'] = [];
+
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
+
         return view('inwardscreate', ['data' => $data]);
     }
 
@@ -117,4 +124,16 @@ class InwardsController extends Controller
 
         return redirect('/'.$request->segment(1));
     }
+
+    //create function to return customer data from inwards create screen
+    public function getCustomerData(Request $request) 
+    {
+        $data = $request->all();
+
+        $res = Customer::find($data['id']);
+        return $res;
+
+    }
+
 }
+  
