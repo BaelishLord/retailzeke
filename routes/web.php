@@ -26,6 +26,7 @@ Route::get('/test/create', 'TestController@create')->name('testcreate');
 // create a resource full route for all the modules 1
 Route::resource('/customer', 'CustomerController');
 Route::resource('/vendor', 'VendorController');
+Route::get('/inwards/create/get-customer-data', 'InwardsController@getCustomerData');
 Route::resource('/inwards', 'InwardsController');
 Route::resource('/outwards', 'OutwardsController');
 Route::resource('/quotation', 'QuotationController');
