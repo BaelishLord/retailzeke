@@ -52,12 +52,12 @@ class VendorController extends Controller
         
         // return getColumnList($this->vendor);
         $data['columns'] = excludeColumn(getColumnList($this->vendor), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Vendor::getKeyField();
         $data['prefix'] = config('constants.Vendor.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
