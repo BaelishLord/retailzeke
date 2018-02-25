@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Log;
+use App\Models\Customer;
 use App\Models\User;
 
 class LogController extends Controller
@@ -15,11 +16,13 @@ class LogController extends Controller
      *
      * @return void
      */
-    public function __construct(Log $log, User $user)
+    public function __construct(Log $log, User $user, Customer $customer)
     {
         $this->middleware('auth');
         $this->log = $log;
         $this->user = $user;
+        $this->customer = $customer;
+
     }
 
     /**
@@ -51,12 +54,12 @@ class LogController extends Controller
         
         // return getColumnList($this->log);
         $data['columns'] = excludeColumn(getColumnList($this->log), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Log::getKeyField();
         $data['prefix'] = config('constants.Log.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
@@ -69,6 +72,11 @@ class LogController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'log';
+        $data['disabled'] = [];
+        // dd($data);
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
+
         return view('logcreate', ['data' => $data]);
     }
 
@@ -77,12 +85,12 @@ class LogController extends Controller
         $data = $request->all();
         $save_cond =  $request->save;
         
+        // return $data;
         beginTransaction();
 
         $response = create($this->log, $data);
 
         commit();
-
         if ($save_cond == "save_continue") {
             return redirect('/'.$request->path().'/create');
         } else {
@@ -113,5 +121,23 @@ class LogController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    //create function to return customer data from inwards create screen
+    public function getCustomerData(Request $request) 
+    {
+        $data = $request->all();
+
+        $res = Customer::find($data['id']);
+        return $res;
+
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->log, $id, Log::getKeyField());
+        commit();
+        return "success";
     }
 }

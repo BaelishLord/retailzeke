@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Outwards;
+use App\Models\Customer;
 use App\Models\User;
 
 class OutwardsController extends Controller
@@ -15,10 +16,11 @@ class OutwardsController extends Controller
      *
      * @return void
      */
-    public function __construct(Outwards $outwards, User $user)
+    public function __construct(Outwards $outwards, User $user, Customer $customer)
     {
         $this->middleware('auth');
         $this->outwards = $outwards;
+        $this->customer = $customer;
         $this->user = $user;
     }
 
@@ -52,12 +54,12 @@ class OutwardsController extends Controller
         
         // return getColumnList($this->outwards);
         $data['columns'] = excludeColumn(getColumnList($this->outwards), ['orderby']); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], ['order_by']);
+        $data['columns'] = array_merge(['activity'], $data['columns'], ['order_by']);
         
         $data['pk'] = Outwards::getKeyField();
         $data['prefix'] = config('constants.Outwards.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
@@ -70,6 +72,11 @@ class OutwardsController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'outwards';
+        $data['disabled'] = [];
+
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
+
         return view('outwardscreate', ['data' => $data]);
     }
 
@@ -114,5 +121,23 @@ class OutwardsController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    //create function to return customer data from inwards create screen
+    public function getCustomerData(Request $request) 
+    {
+        $data = $request->all();
+
+        $res = Customer::find($data['id']);
+        return $res;
+
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->outwards, $id, Outwards::getKeyField());
+        commit();
+        return "success";
     }
 }

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Quotation;
+use App\Models\Customer;
 use App\Models\User;
 
 class QuotationController extends Controller
@@ -15,10 +16,11 @@ class QuotationController extends Controller
      *
      * @return void
      */
-    public function __construct(Quotation $quotation, User $user)
+    public function __construct(Quotation $quotation, User $user, Customer $customer)
     {
         $this->middleware('auth');
         $this->quotation = $quotation;
+        $this->customer = $customer;
         $this->user = $user;
     }
 
@@ -56,12 +58,12 @@ class QuotationController extends Controller
         
         // return getColumnList($this->quotation);
         $data['columns'] = excludeColumn(getColumnList($this->quotation), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Quotation::getKeyField();
         $data['prefix'] = config('constants.Quotation.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
@@ -74,6 +76,10 @@ class QuotationController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'quotation';
+        $data['disabled'] = [];
+
+        $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
         return view('quotationcreate', ['data' => $data]);
     }
 
@@ -118,5 +124,15 @@ class QuotationController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    //create function to return customer data from inwards create screen
+    public function getCustomerData(Request $request) 
+    {
+        $data = $request->all();
+
+        $res = Customer::find($data['id']);
+        return $res;
+
     }
 }

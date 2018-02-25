@@ -48,7 +48,7 @@
                         Form::select('party_name',
                         (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
                         htmlSelect('i_party_name', $data),
-                        array('name'=>'i_party_name', 'class' => 'form-control chosen-select party_name', 'placeholder' => '' , setDisable('i_party_name' , $data['disabled'])))
+                        array('name'=>'i_party_name', 'class' => 'form-control chosen-select party_name required', 'placeholder' => '' , setDisable('i_party_name' , $data['disabled'])))
                     }}
                 </div>
             </div>
@@ -142,13 +142,20 @@
 
 
             $(document).on('change', '.party_name', function() {
+                var id = $(this).val();
+                console.log(id)
                 $.ajax({
                     url:window.location.href+"/get-customer-data",
                     type:'GET',
                     data: {
-                        id : 13,
+                        id : id,
                     },
                     success: function(res) {
+                        var address = res.c_address;
+                        var telephone = res.c_telephone;
+
+                        $('#i_address').val(address);
+                        $('#i_contact_number').val(telephone);
                         console.log(res);
                     }
                 })

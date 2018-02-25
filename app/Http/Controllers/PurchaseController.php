@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Purchase;
+use App\Models\Vendor;
 use App\Models\User;
 
 class PurchaseController extends Controller
@@ -15,10 +16,11 @@ class PurchaseController extends Controller
      *
      * @return void
      */
-    public function __construct(Purchase $purchase, User $user)
+    public function __construct(Purchase $purchase, User $user, Vendor $vendor)
     {
         $this->middleware('auth');
         $this->purchase = $purchase;
+        $this->vendor = $vendor;
         $this->user = $user;
     }
 
@@ -56,12 +58,12 @@ class PurchaseController extends Controller
         
         // return getColumnList($this->purchase);
         $data['columns'] = excludeColumn(getColumnList($this->purchase), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Purchase::getKeyField();
         $data['prefix'] = config('constants.Purchase.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
@@ -74,6 +76,10 @@ class PurchaseController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'purchase';
+        $data['disabled'] = [];
+
+        $data['party_name'] = Vendor::orderBy(Vendor::getKeyField(), 'desc')
+                                    ->pluck('v_name', Vendor::getKeyField());
         return view('purchasecreate', ['data' => $data]);
     }
 
@@ -118,5 +124,23 @@ class PurchaseController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    //create function to return customer data from inwards create screen
+    public function getCustomerData(Request $request) 
+    {
+        $data = $request->all();
+
+        $res = Vendor::find($data['id']);
+        return $res;
+
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->purchase, $id, Purchase::getKeyField());
+        commit();
+        return "success";
     }
 }

@@ -115,4 +115,12 @@ class VendorController extends Controller
 
         return redirect('/'.$request->segment(1));
     }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->vendor, $id, Vendor::getKeyField());
+        commit();
+        return "success";
+    }
 }

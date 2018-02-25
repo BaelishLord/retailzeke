@@ -135,5 +135,13 @@ class InwardsController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->inwards, $id, Inwards::getKeyField());
+        commit();
+        return "success";
+    }
+
 }
   

@@ -53,12 +53,12 @@ class MaintainanceController extends Controller
         
         // return getColumnList($this->maintainance);
         $data['columns'] = excludeColumn(getColumnList($this->maintainance), []); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], []);
+        $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Maintainance::getKeyField();
         $data['prefix'] = config('constants.Maintainance.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
 
         
@@ -115,5 +115,13 @@ class MaintainanceController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->maintainance, $id, Maintainance::getKeyField());
+        commit();
+        return "success";
     }
 }

@@ -129,21 +129,21 @@
             table = datatableInitWithButtonsAndDynamicRev(datatable_object);
 
             // delete call for customer
-            $(document).on('click', '.delete', function(){
+            $(document).on('click', '.delete', function() {
                 var url = $(this).attr('data-url');
                 // console.log(url)
                 bootbox.confirm("Are you sure you want to delete this record!", function(result) { 
-                        console.log('This was logged in the callback: ' + result);
-                        // once ajax is fired will hit the destroy function of controller. No need for route
-                        if(result) {
-                            $.ajax({
-                                url:url,
-                                type:"DELETE",
-                                success: function(res) {
-                                    location.reload();
-                                }
-                            })
-                        } 
+                    console.log('This was logged in the callback: ' + result);
+                    // once ajax is fired will hit the destroy function of controller. No need for route
+                    if(result) {
+                        $.ajax({
+                            url:url,
+                            type:"DELETE",
+                            success: function(res) {
+                                location.reload();
+                            }
+                        })
+                    } 
                 });
             })
 

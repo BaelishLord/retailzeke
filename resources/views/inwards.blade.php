@@ -77,7 +77,7 @@
 
     @include('layouts.script_loaders.datatable_loader')
     @include('layouts.script_loaders.excel_loader')
-
+    <script src="{{ asset('/js/common/bootbox.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -130,7 +130,25 @@
 
             table = datatableInitWithButtonsAndDynamicRev(datatable_object);
                         
-            statusChange();
+            // statusChange();
+
+            $(document).on('click', '.delete', function() {
+                var url = $(this).attr('data-url');
+                // console.log(url)
+                bootbox.confirm("Are you sure you want to delete this record!", function(result) { 
+                    console.log('This was logged in the callback: ' + result);
+                    // once ajax is fired will hit the destroy function of controller. No need for route
+                    if(result) {
+                        $.ajax({
+                            url:url,
+                            type:"DELETE",
+                            success: function(res) {
+                                location.reload();
+                            }
+                        })
+                    } 
+                });
+            })
 
         });
 

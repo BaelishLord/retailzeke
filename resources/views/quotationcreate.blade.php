@@ -4,6 +4,7 @@
   
     @include('layouts.style_loaders.token_loader')
     <link href="{{ asset('/css/common/datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/common/chosen.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/css/common/common.css') }}" rel="stylesheet" type="text/css" />
     
 @endsection
@@ -41,9 +42,18 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
+                    <label for="name">Party Name</label>
+                    {{
+                        Form::select('name',
+                        (isset($data) && isset($data['name'])) ? $data['name'] : [],
+                        htmlSelect('q_name', $data),
+                        array('name'=>'q_name', 'class' => 'form-control chosen-select name required', 'placeholder' => '' , setDisable('q_name' , $data['disabled'])))
+                    }}
+                </div>
+                <!-- <div class="form-group">
                     <label>Party Name</label>
                     <input type="text" class="form-control required" id="q_name" name = "q_name" placeholder="Enter Party Name" value = "{{htmlValue('q_name', $data)}}">
-                </div>
+                </div> -->
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
@@ -139,12 +149,34 @@
 @endsection
 
 @section('custom-scripts')
+    <script src="{{ asset('/js/common/chosen.jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/jquery.validate.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/bootstrap-datepicker.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            chosenInit();
             $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
+
+            $(document).on('change', '.name', function() {
+                var id = $(this).val();
+                console.log(id)
+                $.ajax({
+                    url:window.location.href+"/get-customer-data",
+                    type:'GET',
+                    data: {
+                        id : id,
+                    },
+                    success: function(res) {
+                        var address = res.c_address;
+                        var telephone = res.c_telephone;
+
+                        $('#q_address').val(address);
+                        $('#q_contact_number').val(telephone);
+                        console.log(res);
+                    }
+                })
+            });
         });
     </script>
 
