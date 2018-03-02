@@ -1,6 +1,7 @@
+@if(Request::segment(3) != "create")
 <ol class="breadcrumb">
     <li><a href="/{{Request::segment(1)}}"><i class="fa fa-users"></i> {{ucwords(str_replace('-', ' ', Request::segment(1)))}} </a></li>
-    <li><a href="/{{Request::segment(1)}}/{{Request::segment(2)}}/"><i class="fa fa-user"></i> {{ucwords(str_replace('-', ' ', Request::segment(2)))}} </a></li>
+        <li><a href="/{{Request::segment(1)}}/{{Request::segment(2)}}/"><i class="fa fa-user"></i> {{ucwords(str_replace('-', ' ', Request::segment(2)))}} </a></li>
     @if (Request::segment(4))
         <li><a href="javascript:;"><i class="fa fa-pencil"></i> {{ucwords(str_replace('-', ' ', Request::segment(4)))}} </a></li>
     @else
@@ -11,3 +12,4 @@
         @endif
     @endif
 </ol>
+@endif

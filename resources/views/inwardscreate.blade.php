@@ -55,7 +55,13 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Date</label>
-                    <input type="text" class="form-control datepicker required" id="i_date" name = "i_date" placeholder="Enter Date" value = "{{htmlValue('i_date', $data)}}">
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker required" id="i_date" name = "i_date" placeholder="Enter Date" value = "{{htmlValue('i_date', $data)}}">
+                       <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                       </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -69,7 +75,7 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Problem</label>
-                    <input type="text" class="form-control required" id="i_problem" name = "i_problem" placeholder="Enter Problem" value = "{{htmlValue('i_problem', $data)}}">
+                    <textarea class="form-control required" iid="i_problem" name = "i_problem" placeholder="Enter Problem" >{{htmlValue('i_problem', $data)}}</textarea>
                 </div>
             </div>
         </div>

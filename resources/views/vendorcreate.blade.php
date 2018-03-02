@@ -62,7 +62,7 @@
             <div class = "col-md-6">
                 <div class="form-group">  
                     <label>Telephone</label>
-                    <input type="text" class="form-control number required" id="v_telephone" name = "v_telephone" placeholder="Enter Telephone" value = "{{htmlValue('v_telephone', $data)}}">
+                    <input type="text" class="form-control number required" maxlength="10" id="v_telephone" name = "v_telephone" placeholder="Enter Telephone" value = "{{htmlValue('v_telephone', $data)}}">
                 </div>
             </div>
         </div>
@@ -90,7 +90,12 @@
             <div class = "col-md-6">
                 <div class="form-group">
                     <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" id="v_birthday" name = "v_birthday" placeholder="Enter Birthday/Annivarsary (Optional)" value = "{{htmlValue('v_birthday', $data)}}">
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker" id="v_birthday" name = "v_birthday" placeholder="Enter Birthday/Annivarsary (Optional)" value = "{{htmlValue('v_birthday', $data)}}">
+                       <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                       </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -81,23 +81,24 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            var action_obj = [{
-                class : "",
-                title : "Edit",
-                url : "/edit",
-                href : true,
-                i : {
-                    class : "fa fa-pencil"
-                }
-            }, {
-                class : "delete",
-                title : "Delete",
-                url : "",
-                href : false,
-                i : {
-                    class : "fa fa-trash"
-                }
-            }];
+            var action_obj = [];
+            // var action_obj = [{
+            //     class : "",
+            //     title : "Edit",
+            //     url : "/edit",
+            //     href : true,
+            //     i : {
+            //         class : "fa fa-pencil"
+            //     }
+            // }, {
+            //     class : "delete",
+            //     title : "Delete",
+            //     url : "",
+            //     href : false,
+            //     i : {
+            //         class : "fa fa-trash"
+            //     }
+            // }];
 
             var datatable_object = {
                 table_name : $('table').attr('id'),

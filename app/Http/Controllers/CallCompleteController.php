@@ -47,12 +47,12 @@ class CallCompleteController extends Controller
         
         // return getColumnList($this->callcomplete);
         $data['columns'] = excludeColumn(getColumnList($this->callcomplete), ['status']); // Array to be excluded.
-        $data['columns'] = array_merge(['action'], $data['columns'], ['call_status']);
+        $data['columns'] = array_merge([], $data['columns'], ['call_status']);
         
         $data['pk'] = Callcomplete::getKeyField();
         $data['prefix'] = config('constants.Callcomplete.prefix');
 
-        $data['disable_footer_column'] = ['action'];
+        $data['disable_footer_column'] = [];
         $data['disable_footer_search'] = [];
 
         
@@ -109,5 +109,13 @@ class CallCompleteController extends Controller
         commit();
 
         return redirect('/'.$request->segment(1));
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->callcomplete, $id, Callcomplete::getKeyField());
+        commit();
+        return "success";
     }
 }

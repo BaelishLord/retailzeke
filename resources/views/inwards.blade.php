@@ -90,7 +90,7 @@
                     class : "fa fa-pencil"
                 }
             }, {
-                class : "",
+                class : "delete",
                 title : "Delete",
                 url : "",
                 href : false,
