@@ -37,18 +37,22 @@ class InwardsController extends Controller
             // dd($request->ajax());
 
             $data =  execSelect("
-                SELECT inwards_id,
-                        i_party_name as party_name,
-                        DATE_FORMAT(i_inwards_date, '%W %M %e %Y') as inwards_date,
-                        i_address as address,
-                        i_contact_number as contact_number,
-                        i_quantity as quantity,
-                        i_problem as problem,
-                        i_remark as remark,
-                        i_product_description as product_description,
-                        i_accessories as accessories,
-                        i_warranty as warranty
-                    FROM inwards;", []);
+                                SELECT 
+                                    i.inwards_id,
+                                    COALESCE(c.c_name,'NA') AS party_name,
+                                    DATE_FORMAT(i.i_inwards_date, '%W %M %e %Y') AS inwards_date,
+                                    i.i_address AS address,
+                                    i.i_contact_number AS contact_number,
+                                    i.i_quantity AS quantity,
+                                    i.i_problem AS problem,
+                                    i.i_remark AS remark,
+                                    i.i_product_description AS product_description,
+                                    i.i_accessories AS accessories,
+                                    i.i_warranty AS warranty
+                                FROM
+                                    inwards i
+                                        LEFT JOIN
+                                    customers c ON c.customers_id = i.i_party_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
