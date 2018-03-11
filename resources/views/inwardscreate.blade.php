@@ -39,11 +39,10 @@
 
 <section class="panel">
     <div class="panel-body">
-
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label for="party_name">Party Name</label>
+                    <label for="party_name">Party Name*</label>
                     {{
                         Form::select('party_name',
                         (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
@@ -52,72 +51,94 @@
                     }}
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Date</label>
+                    <label>Date*</label>
                     <div class="input-group">
-                       <input type="text" class="form-control datepicker required" id="i_date" name = "i_date" placeholder="Enter Date" value = "{{htmlValue('i_date', $data)}}">
+                       <input type="text" class="form-control datepicker required" id="i_inwards_date" name = "i_inwards_date" placeholder="Enter Date" value = "{{htmlValue('i_inwards_date', $data)}}">
                        <div class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span> 
                        </div>
                     </div>
-                    
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Quantity</label>
+                    <label>Quantity*</label>
                     <input type="number" class="form-control required" id="i_quantity" name = "i_quantity" placeholder="Enter Quantity" value = "{{htmlValue('i_quantity', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+        </div>
+        <div class = "row">
+        </div>
+        <div class = "row">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Problem</label>
+                    <label>Problem*</label>
                     <textarea class="form-control required" iid="i_problem" name = "i_problem" placeholder="Enter Problem" >{{htmlValue('i_problem', $data)}}</textarea>
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>Address*</label>
                     <textarea class="form-control required" id="i_address" name = "i_address" placeholder="Enter Address" >{{htmlValue('i_address', $data)}}</textarea>
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Product Description</label>
+                    <label>Product Description*</label>
                     <textarea class="form-control required" id="i_product_description" name = "i_product_description" placeholder="Enter Product Description" >{{htmlValue('i_product_description', $data)}}</textarea>
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-3">
                 <div class="form-group">  
-                    <label>Contact Number</label>
+                    <label>Contact Number*</label>
                     <input type="text" maxlength="10" class="form-control required number" id="i_contact_number" name = "i_contact_number" placeholder="Enter Contact Number" value = "{{htmlValue('i_contact_number', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-3">
                 <div class="form-group">
-                    <label>Remark</label>
+                    <label>Remark*</label>
                     <input type="text" class="form-control required" id="i_remark" name = "i_remark" placeholder="Enter Remark" value = "{{htmlValue('i_remark', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class="form-group">
+                    <label>Email*</label>
+                    <input type="email" class="form-control required" id="i_email" name = "i_email" placeholder="Enter Email" value = "{{htmlValue('i_email', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class="form-group">
+                    <label>Accessories*</label>
+                    <input type="text" class="form-control required" id="i_accessories" name = "i_accessories" placeholder="Enter Accessories" value = "{{htmlValue('i_accessories', $data)}}">
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Accessories</label>
-                    <input type="text" class="form-control required" id="i_accessories" name = "i_accessories" placeholder="Enter Accessories" value = "{{htmlValue('i_accessories', $data)}}">
+                    <label>Warranty Product*</label>
+                    <input type="text" class="form-control required" id="i_warranty_product" name = "i_warranty_product" placeholder="Enter Warranty Product" value = "{{htmlValue('i_warranty_product', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Warranty/Chargable</label>
-                    <input type="text" class="form-control required" id="i_warranty" name = "i_warranty" placeholder="Enter Warranty/Chargable" value = "{{htmlValue('i_warranty', $data)}}">
+                    <label>Warranty Chargable*</label>
+                    <input type="number" class="form-control required number" id="i_warranty_chargable" name = "i_warranty_chargable" placeholder="Enter Warranty Chargable" value = "{{htmlValue('i_warranty_chargable', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Warranty Date*</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker required" id="i_warranty_date" name = "i_warranty_date" placeholder="Enter Warranty Date" value = "{{htmlValue('i_warranty_date', $data)}}">
+                       <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                       </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -159,9 +180,11 @@
                     success: function(res) {
                         var address = res.c_address;
                         var telephone = res.c_telephone;
+                        var email = res.c_email;
 
                         $('#i_address').val(address);
                         $('#i_contact_number').val(telephone);
+                        $('#i_email').val(email);
                         console.log(res);
                     }
                 })

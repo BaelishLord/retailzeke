@@ -37,16 +37,22 @@ class OutwardsController extends Controller
             // dd($request->ajax());
 
             $data =  execSelect("
-                SELECT outwards_id,
-                        o_party_name as party_name,
-                        DATE_FORMAT(o_outwards_date, '%W %M %e %Y') as outwards_date,
-                        o_address as address,
-                        o_contact_number as contact_number,
-                        o_quantity as quantity,
-                        o_orderby as order_by,
-                        o_product_description as product_description,
-                        o_warranty as warranty
-                    FROM outwards;", []);
+                SELECT  o.outwards_id,
+                        COALESCE(c.c_name,'NA') AS party_name,
+                        DATE_FORMAT(o.o_outwards_date, '%W %M %e %Y') as outwards_date,
+                        o.o_address as address,
+                        o.o_contact_number as contact_number,
+                        o.o_quantity as quantity,
+                        o.o_orderby as order_by,
+                        o.o_product_description as product_description,
+                        o.o_email AS email,
+                        o.o_warranty_product AS warranty_product,
+                        o.o_warranty_chargable AS warranty_chargable,
+                        DATE_FORMAT(o.o_warranty_date, '%W %M %e %Y') AS warranty_date
+                FROM 
+                outwards o
+                    LEFT JOIN
+                customers c ON c.customers_id = o.o_party_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
@@ -108,6 +114,10 @@ class OutwardsController extends Controller
     public function edit($id)
     {
         $data = Outwards::find($id);
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                            ->pluck('c_name', Customer::getKeyField());
+        $data['o_outwards_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['o_outwards_date'])->format('Y-m-d');
+        $data['o_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['o_warranty_date'])->format('Y-m-d');
         // return $data;
         return view('outwardscreate', ['data' => $data]);
     }

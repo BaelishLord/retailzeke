@@ -37,22 +37,25 @@ class InwardsController extends Controller
             // dd($request->ajax());
 
             $data =  execSelect("
-                                SELECT 
-                                    i.inwards_id,
-                                    COALESCE(c.c_name,'NA') AS party_name,
-                                    DATE_FORMAT(i.i_inwards_date, '%W %M %e %Y') AS inwards_date,
-                                    i.i_address AS address,
-                                    i.i_contact_number AS contact_number,
-                                    i.i_quantity AS quantity,
-                                    i.i_problem AS problem,
-                                    i.i_remark AS remark,
-                                    i.i_product_description AS product_description,
-                                    i.i_accessories AS accessories,
-                                    i.i_warranty AS warranty
-                                FROM
-                                    inwards i
-                                        LEFT JOIN
-                                    customers c ON c.customers_id = i.i_party_name;", []);
+                SELECT 
+                    i.inwards_id,
+                    COALESCE(c.c_name,'NA') AS party_name,
+                    DATE_FORMAT(i.i_inwards_date, '%W %M %e %Y') AS inwards_date,
+                    i.i_address AS address,
+                    i.i_contact_number AS contact_number,
+                    i.i_quantity AS quantity,
+                    i.i_problem AS problem,
+                    i.i_remark AS remark,
+                    i.i_product_description AS product_description,
+                    i.i_email AS email,
+                    i.i_accessories AS accessories,
+                    i.i_warranty_product AS warranty_product,
+                    i.i_warranty_chargable AS warranty_chargable,
+                    DATE_FORMAT(i.i_warranty_date, '%W %M %e %Y') AS warranty_date
+                FROM
+                    inwards i
+                        LEFT JOIN
+                    customers c ON c.customers_id = i.i_party_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
@@ -114,7 +117,11 @@ class InwardsController extends Controller
     public function edit($id)
     {
         $data = Inwards::find($id);
-        // return $data;
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                            ->pluck('c_name', Customer::getKeyField());
+        $data['i_inwards_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['i_inwards_date'])->format('Y-m-d');
+        $data['i_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['i_warranty_date'])->format('Y-m-d');
+        
         return view('inwardscreate', ['data' => $data]);
     }
 

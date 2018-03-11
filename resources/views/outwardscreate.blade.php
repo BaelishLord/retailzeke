@@ -41,9 +41,9 @@
     <div class="panel-body">
 
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label for="party_name">Party Name</label>
+                    <label for="party_name">Party Name*</label>
                     {{
                         Form::select('party_name',
                         (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
@@ -52,52 +52,80 @@
                     }}
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" class="form-control datepicker required" id="o_date" name = "o_date" placeholder="Enter Date" value = "{{htmlValue('o_date', $data)}}">
+                    <label>Date*</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker required" id="o_outwards_date" name = "o_outwards_date" placeholder="Enter Date" value = "{{htmlValue('o_outwards_date', $data)}}">
+                       <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                       </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Quantity</label>
+                    <label>Quantity*</label>
                     <input type="number" class="form-control required" id="o_quantity" name = "o_quantity" placeholder="Enter Quantity" value = "{{htmlValue('o_quantity', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
-                <div class="form-group">
-                    <label>Order By/Reference</label>
-                    <input type="text" class="form-control required" id="o_orderby" name = "o_orderby" placeholder="Enter Order By/Reference" value = "{{htmlValue('o_orderby', $data)}}">
-                </div>
-            </div>
         </div>
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Address</label>
+                    <label>Address*</label>
                     <textarea class="form-control required" id="o_address" name = "o_address" placeholder="Enter Address" >{{htmlValue('o_address', $data)}}</textarea>
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Product Description</label>
+                    <label>Product Description*</label>
                     <textarea class="form-control required" id="o_product_description" name = "o_product_description" placeholder="Enter Product Description" >{{htmlValue('o_product_description', $data)}}</textarea>
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">  
-                    <label>Contact Number</label>
+                    <label>Contact Number*</label>
                     <input type="text" maxlength="10" class="form-control required number" id="o_contact_number" name = "o_contact_number" placeholder="Enter Contact Number" value = "{{htmlValue('o_contact_number', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Warranty/Chargable</label>
-                    <input type="text" class="form-control required" id="o_warranty" name = "o_warranty" placeholder="Enter Warranty/Chargable" value = "{{htmlValue('o_warranty', $data)}}">
+                    <label>Email*</label>
+                    <input type="email" class="form-control required" id="o_email" name = "o_email" placeholder="Enter Email" value = "{{htmlValue('o_email', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Order By/Reference*</label>
+                    <input type="text" class="form-control required" id="o_orderby" name = "o_orderby" placeholder="Enter Order By/Reference" value = "{{htmlValue('o_orderby', $data)}}">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Warranty Product*</label>
+                    <input type="text" class="form-control required" id="o_warranty_product" name = "o_warranty_product" placeholder="Enter Warranty Product" value = "{{htmlValue('o_warranty_product', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Warranty Chargable*</label>
+                    <input type="number" class="form-control required number" id="o_warranty_chargable" name = "o_warranty_chargable" placeholder="Enter Warranty Chargable" value = "{{htmlValue('o_warranty_chargable', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Warranty Date*</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker required" id="o_warranty_date" name = "o_warranty_date" placeholder="Enter Warranty Date" value = "{{htmlValue('o_warranty_date', $data)}}">
+                       <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span> 
+                       </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,7 +152,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             chosenInit();
-            $('.datepicker').datepicker();
+            $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
 
             $(document).on('change', '.party_name', function() {
                 var id = $(this).val();
@@ -138,9 +166,11 @@
                     success: function(res) {
                         var address = res.c_address;
                         var telephone = res.c_telephone;
+                        var email = res.c_email;
 
                         $('#o_address').val(address);
                         $('#o_contact_number').val(telephone);
+                        $('#o_email').val(email);
                         console.log(res);
                     }
                 })

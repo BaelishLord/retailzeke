@@ -53,58 +53,65 @@
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Party Name</label>
-                    <input type="text" class="form-control required" id="m_name" name = "m_name" placeholder="Enter Party Name" value = "{{htmlValue('m_name', $data)}}">
+                    <label for="party_name">Party Name*</label>
+                    {{
+                        Form::select('party_name',
+                        (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
+                        htmlSelect('mnt_party_name', $data),
+                        array('name'=>'mnt_party_name', 'class' => 'form-control chosen-select party_name required', 'placeholder' => '' , setDisable('mnt_party_name' , $data['disabled'])))
+                    }}
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
                     <label>From Date</label>
-                    <input type="text" class="form-control datepicker required" id="m_from_date" name = "m_from_date" placeholder="Enter From Date" value = "{{htmlValue('m_from_date', $data)}}">
+                    <input type="text" class="form-control datepicker required" id="mnt_from_date" name = "mnt_from_date" placeholder="Enter From Date" value = "{{htmlValue('mnt_from_date', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
                     <label>To Date</label>
-                    <input type="text" class="form-control datepicker required" id="m_to_date" name = "m_to_date" placeholder="Enter To Date" value = "{{htmlValue('m_to_date', $data)}}">
+                    <input type="text" class="form-control datepicker required" id="mnt_to_date" name = "mnt_to_date" placeholder="Enter To Date" value = "{{htmlValue('mnt_to_date', $data)}}">
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
                     <label>Product Serial Number</label>
-                    <input type="text" class="form-control required" id="m_product_serial_number" name = "m_product_serial_number" placeholder="Enter Product Serial Number" value = "{{htmlValue('m_product_serial_number', $data)}}">
+                    <input type="text" class="form-control required" id="mnt_product_serial_number" name = "mnt_product_serial_number" placeholder="Enter Product Serial Number" value = "{{htmlValue('mnt_product_serial_number', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+        </div>
+        <div class = "row">
+            <div class = "col-md-2">
+                <div class="form-group">
+                    <label>Rate*</label>
+                    <input type="number" class="form-control required number" id="mnt_rate" name = "mnt_rate" placeholder="Enter Rate" value = "{{htmlValue('mnt_rate', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-2">
                 <div class="form-group">
                     <label>Quantity</label>
-                    <input type="number" class="form-control required number" id="m_quantity" name = "m_quantity" placeholder="Enter Quantity" value = "{{htmlValue('m_quantity', $data)}}">
+                    <input type="number" class="form-control required number" id="mnt_quantity" name = "mnt_quantity" placeholder="Enter Quantity" value = "{{htmlValue('mnt_quantity', $data)}}">
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-2">
                 <div class="form-group">
                     <label>Sub Total</label>
-                    <input type="number" class="form-control required number" id="m_subtotal" name = "m_subtotal" placeholder="Enter Sub Total" value = "{{htmlValue('m_subtotal', $data)}}">
+                    <input type="number" class="form-control required number" id="mnt_subtotal" name = "mnt_subtotal" placeholder="Enter Sub Total" readonly value = "{{htmlValue('mnt_subtotal', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-2">
                 <div class="form-group">
                     <label>Taxes</label>
-                    <input type="text" class="form-control required" id="m_taxes" name = "m_taxes" placeholder="Enter Taxes" value = "{{htmlValue('m_taxes', $data)}}">
+                    <input type="number" class="form-control required" id="mnt_taxes" name = "mnt_taxes" placeholder="Enter Taxes" value = "{{htmlValue('mnt_taxes', $data)}}">
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
                     <label>Total</label>
-                    <input type="number" class="form-control required number" id="m_total" name = "m_total" placeholder="Enter Total" value = "{{htmlValue('m_total', $data)}}">
+                    <input type="number" class="form-control required number" id="mnt_total" name = "mnt_total" placeholder="Enter Total" readonly value = "{{htmlValue('mnt_total', $data)}}">
                 </div>
             </div>
         </div>
@@ -130,6 +137,29 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
+
+            $(document).on('keyup', '#mnt_rate,#mnt_quantity', function() {
+                var quantity = parseInt($('#mnt_quantity').val().trim());
+                var rate = parseInt($('#mnt_rate').val().trim());
+
+                if (quantity && rate) {
+                    $('#mnt_subtotal').val((quantity*rate));
+                } else {
+                    $('#mnt_subtotal').val('');
+                }
+            });
+
+            $(document).on('keyup', '#mnt_taxes', function() {
+                var taxes = parseInt($('#mnt_taxes').val().trim());
+                var quantity = parseInt($('#mnt_quantity').val().trim());
+                var rate = parseInt($('#mnt_rate').val().trim());
+
+                if (quantity && rate && taxes) {
+                    $('#mnt_total').val(((quantity*rate) + taxes));
+                } else {
+                    $('#mnt_total').val('');
+                }
+            });
         });
     </script>
 

@@ -42,7 +42,7 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label for="party_name">Party Name</label>
+                    <label for="party_name">Party Name*</label>
                     {{
                         Form::select('party_name',
                         (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
@@ -53,43 +53,47 @@
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Log Date And Time</label>
+                    <label>Log Date And Time*</label>
                     <input type="text" class="form-control datetimepicker required" id="l_log_date" name = "l_log_date" placeholder="Enter Log Date And Time" value = "{{htmlValue('l_log_date', $data)}}">
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">  
-                    <label>Contact Number</label>
+                    <label>Contact Number*</label>
                     <input type="text" maxlength="10" class="form-control required number" id="l_contact_number" name = "l_contact_number" placeholder="Enter Contact Number" value = "{{htmlValue('l_contact_number', $data)}}">
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Called By</label>
+                    <label>Email*</label>
+                    <input type="email" class="form-control required" id="l_email" name = "l_email" placeholder="Enter Email" value = "{{htmlValue('l_email', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-4">
+                <div class="form-group">
+                    <label>Called By*</label>
                     <input type="text" class="form-control required" id="l_called_by" name = "l_called_by" placeholder="Enter Called By" value = "{{htmlValue('l_called_by', $data)}}">
                 </div>
             </div>
         </div>
         <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Problem Description</label>
+                    <label>Problem Description*</label>
                     <textarea class="form-control required" id="l_problem_description" name = "l_problem_description" placeholder="Enter Problem Description" >{{htmlValue('l_problem_description', $data)}}</textarea>
                 </div>
             </div>
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Engineer Assigned</label>
+                    <label>Engineer Assigned*</label>
                     <input type="text" class="form-control required" id="l_assigned_engineer" name = "l_assigned_engineer" placeholder="Enter Engineer Assigned" value = "{{htmlValue('l_assigned_engineer', $data)}}">
                 </div>
             </div>
-        </div>
-        <div class = "row">
-            <div class = "col-md-6">
+            <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Part To Be Taken</label>
+                    <label>Part To Be Taken*</label>
                     <input type="text" class="form-control required" id="l_part_to_be_taken" name = "l_part_to_be_taken" placeholder="Enter Part To Be Taken" value = "{{htmlValue('l_part_to_be_taken', $data)}}">
                 </div>
             </div>
@@ -133,9 +137,11 @@
                     success: function(res) {
                         // var address = res.c_address;
                         var telephone = res.c_telephone;
+                        var email = res.c_email;
 
                         // $('#i_address').val(address);
                         $('#l_contact_number').val(telephone);
+                        $('#l_email').val(email);
                         console.log(res);
                     }
                 })

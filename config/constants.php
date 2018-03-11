@@ -38,7 +38,7 @@ return [
 	],
 	'Maintainance'=> [
 	    'table' => 'Maintainance',
-	    'prefix' => 'm_'
+	    'prefix' => 'mnt_'
 	]
 
 ];

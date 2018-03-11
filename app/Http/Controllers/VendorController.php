@@ -38,12 +38,15 @@ class VendorController extends Controller
                 SELECT vendors_id,
                         v_name as name,
                         v_telephone as telephone,
+                        v_alternate_telephone as alternate_telephone,
                         v_company_name as company_name,
                         v_email as email,
+                        v_alternate_email as alternate_email,
                         v_address as address,
-                        v_gst as gst,
+                        v_gstn as gstn,
                         v_product_dealin as product_dealin,
-                        DATE_FORMAT(v_birthday, '%W %M %e %Y') as birthday
+                        DATE_FORMAT(v_birthday, '%W %M %e %Y') as birthday,
+                        DATE_FORMAT(v_annivarsary, '%W %M %e %Y') as annivarsary
                     FROM vendors;", []);
 
             $data = collect($data);

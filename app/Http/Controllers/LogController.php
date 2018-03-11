@@ -38,15 +38,18 @@ class LogController extends Controller
             // dd($request->ajax());
 
             $data =  execSelect("
-                SELECT logs_id,
-                        l_party_name as party_name,
-                        DATE_FORMAT(l_log_date, '%W %M %e %Y %H:%i %p') as log_date,
-                        l_contact_number as contact_number,
-                        l_called_by as called_by,
-                        l_problem_description as problem_description,
-                        l_assigned_engineer as assigned_engineer,
-                        l_part_to_be_taken as part_to_be_taken
-                    FROM logs;", []);
+                    SELECT  l.logs_id,
+                            COALESCE(c.c_name,'NA') AS party_name,
+                            DATE_FORMAT(l.l_log_date, '%W %M %e %Y %H:%i %p') as log_date,
+                            l.l_contact_number as contact_number,
+                            l.l_called_by as called_by,
+                            l.l_problem_description as problem_description,
+                            l.l_email as email,
+                            l.l_assigned_engineer as assigned_engineer,
+                            l.l_part_to_be_taken as part_to_be_taken
+                    FROM logs l
+                        LEFT JOIN
+                    customers c ON c.customers_id = l.l_party_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
@@ -108,6 +111,8 @@ class LogController extends Controller
     public function edit($id)
     {
         $data = Log::find($id);
+        $data['party_name'] = Vendor::orderBy(Vendor::getKeyField(), 'desc')
+                                    ->pluck('c_name', Vendor::getKeyField());
         // return $data;
         return view('logcreate', ['data' => $data]);
     }

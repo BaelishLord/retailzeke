@@ -37,11 +37,14 @@ class CustomerController extends Controller
                     SELECT customers_id,
                             c_name as name,
                             c_telephone as telephone,
+                            c_alternate_telephone as alternate_telephone,
                             c_company_name as company_name,
                             c_email as email,
+                            c_alternate_email as alternate_email,
                             c_address as address,
-                            c_gst as gst,
-                            DATE_FORMAT(c_birthday, '%W %M %e %Y') as birthday
+                            c_gstn as gstn,
+                            DATE_FORMAT(c_birthday, '%W %M %e %Y') as birthday,
+                            DATE_FORMAT(c_annivarsary, '%W %M %e %Y') as annivarsary
                         FROM customers;", []);
 
             $data = collect($data);

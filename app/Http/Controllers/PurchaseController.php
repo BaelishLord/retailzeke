@@ -34,24 +34,28 @@ class PurchaseController extends Controller
 
         // dd(Config::get('constants.Purchase.prefix'));
         if ($request->ajax()) {
-            // dd($request->ajax());
 
             $data =  execSelect("
-                    SELECT purchase_id,
-                            p_name as name,
-                            DATE_FORMAT(p_purchase_date, '%W %M %e %Y') as purchase_date,
-                            p_address as address,
-                            p_contact_number as contact_number,
-                            p_reference as reference,
-                            p_quantity as quantity,
-                            p_rate as rate,
-                            p_subtotal as subtotal,
-                            p_taxes as taxes,
-                            p_product_description as product_description,
-                            p_total as total,
-                            p_warranty as warranty
-                        FROM purchase;", []);
-
+                    SELECT  p.purchase_id,
+                            COALESCE(v.v_name,'NA') AS party_name,
+                            DATE_FORMAT(p.p_purchase_date, '%W %M %e %Y') as purchase_date,
+                            p.p_address as address,
+                            p.p_contact_number as contact_number,
+                            p.p_reference as reference,
+                            p.p_quantity as quantity,
+                            p.p_rate as rate,
+                            p.p_subtotal as subtotal,
+                            p.p_taxes as taxes,
+                            p.p_product_description as product_description,
+                            p.p_email as email,
+                            p.p_total as total,
+                            p.p_warranty_product AS warranty_product,
+                            p.p_warranty_chargable AS warranty_chargable,
+                            DATE_FORMAT(p.p_warranty_date, '%W %M %e %Y') AS warranty_date
+                    FROM purchase p
+                        LEFT JOIN
+                    vendors v ON v.vendors_id = p.p_party_name;", []);
+            
             $data = collect($data);
             return Datatables::of($data)->make(true);
         }
@@ -110,7 +114,11 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $data = Puchase::find($id);
+        $data = Purchase::find($id);
+        $data['party_name'] = Vendor::orderBy(Vendor::getKeyField(), 'desc')
+                                    ->pluck('v_name', Vendor::getKeyField());
+        $data['p_purchase_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['p_purchase_date'])->format('Y-m-d');
+        $data['p_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['p_warranty_date'])->format('Y-m-d');
         // return $data;
         return view('purchasecreate', ['data' => $data]);
     }
@@ -120,7 +128,7 @@ class PurchaseController extends Controller
         $data = $request->all();
         // return $data;
         beginTransaction();
-            fillUpdate($this->purchase, $data, $id, Puchase::getKeyField());
+            fillUpdate($this->purchase, $data, $id, Purchase::getKeyField());
         commit();
 
         return redirect('/'.$request->segment(1));

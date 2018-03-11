@@ -41,13 +41,13 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Name*</label>
                     <input type="text" class="form-control required" id="c_name" name = "c_name" placeholder="Enter Name" value = "{{htmlValue('c_name', $data)}}">
                 </div>
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Company/Group Name</label>
+                    <label>Company/Group Name*</label>
                     <input type="text" class="form-control required" id="c_company_name" name = "c_company_name" placeholder="Enter Company Name" value = "{{htmlValue('c_company_name', $data)}}">
                 </div>
             </div>
@@ -55,36 +55,66 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group"> 
-                    <label>Address</label>
+                    <label>Address*</label>
                     <textarea class="form-control required" id="c_address" name = "c_address" placeholder="Address" style="">{{htmlValue('c_address', $data)}}</textarea>
                 </div>
             </div>
             <div class = "col-md-6">
+                <div class="form-group">
+                    <label>GSTN*</label>
+                    <input type="text" class="form-control required" id="c_gstn" name = "c_gstn" placeholder="Enter GSTN" value = "{{htmlValue('c_gstn', $data)}}">
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Email*</label>
+                    <input type="email" class="form-control required" id="c_email" name = "c_email" placeholder="Enter Email" value = "{{htmlValue('c_email', $data)}}">
+                </div>
+            </div>
+            <div class = "col-md-6">
                 <div class="form-group">  
-                    <label>Telephone</label>
+                    <label>Telephone*</label>
                     <input type="text" class="form-control required number" id="c_telephone" name = "c_telephone" placeholder="Enter Telephone" maxlength="10" value = "{{htmlValue('c_telephone', $data)}}">
                 </div>
             </div>
         </div>
         <div class = "row">
             <div class = "col-md-6">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control required" id="c_email" name = "c_email" placeholder="Enter Email" value = "{{htmlValue('c_email', $data)}}">
+                <div class="form-group">  
+                    <label>Alternate Email*</label>
+                    <input type="email" class="form-control required" id="c_alternate_email" name = "c_alternate_email" placeholder="Enter Email" value = "{{htmlValue('c_alternate_email', $data)}}">
                 </div>
             </div>
             <div class = "col-md-6">
-                <div class="form-group">
-                    <label>GST/Others</label>
-                    <input type="text" class="form-control required" id="c_gst" name = "c_gst" placeholder="Enter gst" value = "{{htmlValue('c_gst', $data)}}">
+                <div class="form-group"> 
+                    <label>Alternate Contact Number*</label>
+                    <input type="text" class="form-control required number" id="c_alternate_telephone" name = "c_alternate_telephone" placeholder="Enter Telephone" maxlength="10" value = "{{htmlValue('c_alternate_telephone', $data)}}">
                 </div>
             </div>
         </div>
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Birthday/Annivarsary (Optional)</label>
-                    <input type="text" class="form-control datepicker" id="c_birthday" name = "c_birthday" placeholder="Enter birthday" value = "{{htmlValue('c_birthday', $data)}}">
+                    <label>Birthday (Optional)</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker" id="c_birthday" name = "c_birthday" placeholder="Enter birthday" value = "{{htmlValue('c_birthday', $data)}}">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Annivarsary (Optional)</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control datepicker" id="c_annivarsary" name = "c_annivarsary" placeholder="Enter Annivarsary" value = "{{htmlValue('c_annivarsary', $data)}}">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span> 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

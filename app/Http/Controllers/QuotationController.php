@@ -37,20 +37,25 @@ class QuotationController extends Controller
             // dd($request->ajax());
 
             $data =  execSelect("
-                    SELECT quotation_id,
-                            q_name as name,
-                            DATE_FORMAT(q_quotation_date, '%W %M %e %Y') as quotation_date,
-                            q_address as address,
-                            q_contact_number as contact_number,
-                            q_reference as reference,
-                            q_quantity as quantity,
-                            q_rate as rate,
-                            q_subtotal as subtotal,
-                            q_taxes as taxes,
-                            q_product_description as product_description,
-                            q_total as total,
-                            q_warranty as warranty
-                        FROM quotation;", []);
+                SELECT q.quotation_id,
+                        COALESCE(c.c_name,'NA') AS name,
+                        DATE_FORMAT(q.q_quotation_date, '%W %M %e %Y') as quotation_date,
+                        q.q_address as address,
+                        q.q_contact_number as contact_number,
+                        q.q_reference as reference,
+                        q.q_quantity as quantity,
+                        q.q_rate as rate,
+                        q.q_subtotal as subtotal,
+                        q.q_taxes as taxes,
+                        q.q_product_description as product_description,
+                        q.q_email as email,
+                        q.q_total as total,
+                        q.q_warranty_product AS warranty_product,
+                        q.q_warranty_chargable AS warranty_chargable,
+                        DATE_FORMAT(q.q_warranty_date, '%W %M %e %Y') AS warranty_date
+                FROM quotation q
+                    LEFT JOIN
+                customers c ON c.customers_id = q.q_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
@@ -111,6 +116,10 @@ class QuotationController extends Controller
     public function edit($id)
     {
         $data = Quotation::find($id);
+        $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
+        $data['q_quotation_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_quotation_date'])->format('Y-m-d');
+        $data['q_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_warranty_date'])->format('Y-m-d');
         // return $data;
         return view('quotationcreate', ['data' => $data]);
     }
@@ -134,5 +143,13 @@ class QuotationController extends Controller
         $res = Customer::find($data['id']);
         return $res;
 
+    }
+
+    public function destroy($id)
+    {
+        beginTransaction();
+        $res = delete($this->quotation, $id, Quotation::getKeyField());
+        commit();
+        return "success";
     }
 }
