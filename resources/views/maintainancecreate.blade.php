@@ -3,6 +3,7 @@
 @section('custom-styles')
   
     @include('layouts.style_loaders.token_loader')
+    <link href="{{ asset('/css/common/chosen.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/css/common/datepicker.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/css/common/common.css') }}" rel="stylesheet" type="text/css" />
     
@@ -41,25 +42,25 @@
         <div class = "row">
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Type</label>
-                    <select class="form-control required" id="m_type" name = "m_type">
-                        <option value="">--Please Select--</option>
-                        <option value="amc">AMC</option>
-                        <option value="antivirus">Antivirus</option>
-                        <option value="renewal">Software Renewal</option>
-                        <option value="warranty">Warranty Maintainance</option>
-                    </select>
-                </div>
-            </div>
-            <div class = "col-md-6">
-                <div class="form-group">
                     <label for="party_name">Party Name*</label>
                     {{
                         Form::select('party_name',
                         (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
                         htmlSelect('mnt_party_name', $data),
-                        array('name'=>'mnt_party_name', 'class' => 'form-control chosen-select party_name required', 'placeholder' => '' , setDisable('mnt_party_name' , $data['disabled'])))
+                        array('name'=>'mnt_party_name', 'class' => 'form-control required chosen-select party_name', 'placeholder' => '' , setDisable('mnt_party_name' , $data['disabled'])))
                     }}
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select class="form-control required" id="mnt_type" name = "mnt_type">
+                        <option value="">--Please Select--</option>
+                        <option value="AMC">AMC</option>
+                        <option value="Antivirus">Antivirus</option>
+                        <option value="Software Renewal">Software Renewal</option>
+                        <option value="Warranty Maintainance">Warranty Maintainance</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -131,11 +132,13 @@
 @endsection
 
 @section('custom-scripts')
+    <script src="{{ asset('/js/common/chosen.jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/jquery.validate.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/bootstrap-datepicker.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/js/common/common.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            chosenInit();
             $('.datepicker').datepicker({ format: 'yyyy-mm-dd' });
 
             $(document).on('keyup', '#mnt_rate,#mnt_quantity', function() {

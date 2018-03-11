@@ -82,7 +82,7 @@
         $(document).ready(function() {
 
             var action_obj = [{
-                class : "",
+                class : "edit",
                 title : "Edit",
                 url : "/edit",
                 href : true,

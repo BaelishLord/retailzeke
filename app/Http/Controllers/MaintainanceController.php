@@ -40,7 +40,6 @@ class MaintainanceController extends Controller
                 SELECT  mnt.maintainance_id,
                         COALESCE(c.c_name,'NA') AS party_name,
                         mnt.mnt_type as type,
-                        mnt.mnt_name as name,
                         mnt.mnt_product_serial_number as product_serial_number,
                         DATE_FORMAT(mnt.mnt_from_date, '%W %M %e %Y') as from_date,
                         DATE_FORMAT(mnt.mnt_to_date, '%W %M %e %Y') as to_date,
@@ -54,26 +53,12 @@ class MaintainanceController extends Controller
                     LEFT JOIN
                 customers c ON c.customers_id = mnt.mnt_party_name;", []);
 
-
-                // SELECT maintainance_id,
-                //         mnt_type as type,
-                //         mnt_name as name,
-                //         mnt_product_serial_number as product_serial_number,
-                //         DATE_FORMAT(mnt_from_date, '%W %M %e %Y') as from_date,
-                //         DATE_FORMAT(mnt_to_date, '%W %M %e %Y') as to_date,
-                //         mnt_rate as rate,
-                //         mnt_quantity as quantity,
-                //         mnt_subtotal as subtotal,
-                //         mnt_taxes as taxes,
-                //         mnt_total as total
-                //     FROM maintainance;", []);
-
             $data = collect($data);
             return Datatables::of($data)->make(true);
         }
         
         // return getColumnList($this->maintainance);
-        $data['columns'] = excludeColumn(getColumnList($this->maintainance), []); // Array to be excluded.
+        $data['columns'] = excludeColumn(getColumnList($this->maintainance), ['orderby']); // Array to be excluded.
         $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Maintainance::getKeyField();
@@ -81,7 +66,6 @@ class MaintainanceController extends Controller
 
         $data['disable_footer_column'] = ['activity'];
         $data['disable_footer_search'] = [];
-
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
         return view('maintainance', ['data' => $data]);
@@ -92,6 +76,8 @@ class MaintainanceController extends Controller
     {
         $data['user'] = [];
         $data['screen_name'] = 'maintainance';
+        $data['disabled'] = [];
+
         $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
                                     ->pluck('c_name', Customer::getKeyField());
         return view('maintainancecreate', ['data' => $data]);
@@ -125,8 +111,8 @@ class MaintainanceController extends Controller
     public function edit($id)
     {
         $data = Maintainance::find($id);
-        $data['mnt_from_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['mnt_from_date'])->format('Y-m-d');
-        $data['mnt_to_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['mnt_to_date'])->format('Y-m-d');
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                            ->pluck('c_name', Customer::getKeyField());
         // return $data;
         return view('maintainancecreate', ['data' => $data]);
     }
