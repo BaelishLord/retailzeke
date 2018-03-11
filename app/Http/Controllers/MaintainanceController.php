@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Maintainance;
 use App\Models\Customer;
+use App\Models\MaintainanceType;
 use App\Models\User;
 
 class MaintainanceController extends Controller
@@ -16,10 +17,11 @@ class MaintainanceController extends Controller
      *
      * @return void
      */
-    public function __construct(Maintainance $maintainance, User $user, Customer $customer)
+    public function __construct(Maintainance $maintainance, MaintainanceType $maintainancetype, User $user, Customer $customer)
     {
         $this->middleware('auth');
         $this->maintainance = $maintainance;
+        $this->maintainancetype = $maintainancetype;
         $this->customer = $customer;
         $this->user = $user;
     }
@@ -39,7 +41,7 @@ class MaintainanceController extends Controller
             $data =  execSelect("
                 SELECT  mnt.maintainance_id,
                         COALESCE(c.c_name,'NA') AS party_name,
-                        mnt.mnt_type as type,
+                        COALESCE(mt.mt_name,'NA') AS type,
                         mnt.mnt_product_serial_number as product_serial_number,
                         DATE_FORMAT(mnt.mnt_from_date, '%W %M %e %Y') as from_date,
                         DATE_FORMAT(mnt.mnt_to_date, '%W %M %e %Y') as to_date,
@@ -50,6 +52,8 @@ class MaintainanceController extends Controller
                         mnt.mnt_total as total
                 FROM 
                 maintainance mnt
+                    LEFT JOIN
+                maintainance_type mt ON mt.maintainance_type_id = mnt.mnt_type
                     LEFT JOIN
                 customers c ON c.customers_id = mnt.mnt_party_name;", []);
 
@@ -80,6 +84,8 @@ class MaintainanceController extends Controller
 
         $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
                                     ->pluck('c_name', Customer::getKeyField());
+        $data['type'] = MaintainanceType::orderBy(MaintainanceType::getKeyField(), 'desc')
+                                    ->pluck('mt_name', MaintainanceType::getKeyField());
         return view('maintainancecreate', ['data' => $data]);
     }
 
@@ -113,6 +119,10 @@ class MaintainanceController extends Controller
         $data = Maintainance::find($id);
         $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
                             ->pluck('c_name', Customer::getKeyField());
+        $data['type'] = MaintainanceType::orderBy(MaintainanceType::getKeyField(), 'desc')
+                                    ->pluck('mt_name', MaintainanceType::getKeyField());
+        $data['mnt_from_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['mnt_from_date'])->format('Y-m-d');
+        $data['mnt_to_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['mnt_to_date'])->format('Y-m-d');
         // return $data;
         return view('maintainancecreate', ['data' => $data]);
     }

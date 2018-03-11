@@ -111,8 +111,8 @@ class LogController extends Controller
     public function edit($id)
     {
         $data = Log::find($id);
-        $data['party_name'] = Vendor::orderBy(Vendor::getKeyField(), 'desc')
-                                    ->pluck('c_name', Vendor::getKeyField());
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
         // return $data;
         return view('logcreate', ['data' => $data]);
     }

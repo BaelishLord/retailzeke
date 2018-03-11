@@ -29,8 +29,8 @@
 
 @section('main-content')
 
-@if (Request::segment(4))
-    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
+@if (Request::segment(3))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
     {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
@@ -42,12 +42,12 @@
         <div class = "row">
             <div class = "col-md-4">
                 <div class="form-group">
-                    <label for="name">Party Name*</label>
+                    <label for="party_name">Party Name*</label>
                     {{
-                        Form::select('name',
-                        (isset($data) && isset($data['name'])) ? $data['name'] : [],
-                        htmlSelect('q_name', $data),
-                        array('name'=>'q_name', 'class' => 'form-control chosen-select name required', 'placeholder' => '' , setDisable('q_name' , $data['disabled'])))
+                        Form::select('party_name',
+                        (isset($data) && isset($data['party_name'])) ? $data['party_name'] : [],
+                        htmlSelect('q_party_name', $data),
+                        array('party_name'=>'q_party_name', 'class' => 'form-control chosen-select party_name required', 'placeholder' => '' , setDisable('q_party_name' , $data['disabled'])))
                     }}
                 </div>
             </div>

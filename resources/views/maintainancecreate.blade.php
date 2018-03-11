@@ -29,8 +29,8 @@
 
 @section('main-content')
 
-@if (Request::segment(4))
-    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
+@if (Request::segment(3))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
     {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif
@@ -53,33 +53,39 @@
             </div>
             <div class = "col-md-6">
                 <div class="form-group">
-                    <label>Type</label>
-                    <select class="form-control required" id="mnt_type" name = "mnt_type">
+                    <label>Type*</label>
+                    {{
+                        Form::select('type',
+                        (isset($data) && isset($data['type'])) ? $data['type'] : [],
+                        htmlSelect('mnt_type', $data),
+                        array('name'=>'mnt_type', 'class' => 'form-control required chosen-select type', 'placeholder' => '' , setDisable('mnt_type' , $data['disabled'])))
+                    }}
+                    <!-- <select class="form-control required" id="mnt_type" name = "mnt_type">
                         <option value="">--Please Select--</option>
                         <option value="AMC">AMC</option>
                         <option value="Antivirus">Antivirus</option>
                         <option value="Software Renewal">Software Renewal</option>
                         <option value="Warranty Maintainance">Warranty Maintainance</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
         </div>
         <div class = "row">
             <div class = "col-md-4">
                 <div class="form-group">
-                    <label>From Date</label>
+                    <label>From Date*</label>
                     <input type="text" class="form-control datepicker required" id="mnt_from_date" name = "mnt_from_date" placeholder="Enter From Date" value = "{{htmlValue('mnt_from_date', $data)}}">
                 </div>
             </div>
             <div class = "col-md-4">
                 <div class="form-group">
-                    <label>To Date</label>
+                    <label>To Date*</label>
                     <input type="text" class="form-control datepicker required" id="mnt_to_date" name = "mnt_to_date" placeholder="Enter To Date" value = "{{htmlValue('mnt_to_date', $data)}}">
                 </div>
             </div>
             <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Product Serial Number</label>
+                    <label>Product Serial Number*</label>
                     <input type="text" class="form-control required" id="mnt_product_serial_number" name = "mnt_product_serial_number" placeholder="Enter Product Serial Number" value = "{{htmlValue('mnt_product_serial_number', $data)}}">
                 </div>
             </div>
@@ -93,25 +99,25 @@
             </div>
             <div class = "col-md-2">
                 <div class="form-group">
-                    <label>Quantity</label>
+                    <label>Quantity*</label>
                     <input type="number" class="form-control required number" id="mnt_quantity" name = "mnt_quantity" placeholder="Enter Quantity" value = "{{htmlValue('mnt_quantity', $data)}}">
                 </div>
             </div>
             <div class = "col-md-2">
                 <div class="form-group">
-                    <label>Sub Total</label>
+                    <label>Sub Total*</label>
                     <input type="number" class="form-control required number" id="mnt_subtotal" name = "mnt_subtotal" placeholder="Enter Sub Total" readonly value = "{{htmlValue('mnt_subtotal', $data)}}">
                 </div>
             </div>
             <div class = "col-md-2">
                 <div class="form-group">
-                    <label>Taxes</label>
+                    <label>Taxes*</label>
                     <input type="number" class="form-control required" id="mnt_taxes" name = "mnt_taxes" placeholder="Enter Taxes" value = "{{htmlValue('mnt_taxes', $data)}}">
                 </div>
             </div>
             <div class = "col-md-4">
                 <div class="form-group">
-                    <label>Total</label>
+                    <label>Total*</label>
                     <input type="number" class="form-control required number" id="mnt_total" name = "mnt_total" placeholder="Enter Total" readonly value = "{{htmlValue('mnt_total', $data)}}">
                 </div>
             </div>
