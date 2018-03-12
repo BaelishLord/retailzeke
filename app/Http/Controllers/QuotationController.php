@@ -116,8 +116,8 @@ class QuotationController extends Controller
     public function edit($id)
     {
         $data = Quotation::find($id);
-        $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
-                                    ->pluck('c_name', Customer::getKeyField());
+        // $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    // ->pluck('c_name', Customer::getKeyField());
         $data['q_quotation_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_quotation_date'])->format('Y-m-d');
         $data['q_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_warranty_date'])->format('Y-m-d');
         // return $data;

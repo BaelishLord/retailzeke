@@ -68,6 +68,7 @@ class MaintainanceController extends Controller
         $data['disable_footer_search'] = [];
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
+
         return view('maintainance', ['data' => $data]);
     }
 

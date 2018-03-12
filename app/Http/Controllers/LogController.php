@@ -67,6 +67,7 @@ class LogController extends Controller
 
         
         $data['disable_footer_search'] = getIndex($data['disable_footer_column'], $data['columns']);
+        
         return view('log', ['data' => $data]);
     }
 
