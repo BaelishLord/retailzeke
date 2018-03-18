@@ -29,8 +29,8 @@
 
 @section('main-content')
 
-@if (Request::segment(4))
-    {!! Form::model($data, ['url' => ["/".Request::segment(1)."/".Request::segment(2), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
+@if (Request::segment(3))
+    {!! Form::model($data, ['url' => ["/".Request::segment(1), $data->getRouteKey()], 'method' => 'put', 'id' => 'validateForm']) !!}
 @else
     {!! Form::open(['url' => "/".Request::segment(1), 'id' => 'validateForm']) !!}
 @endif

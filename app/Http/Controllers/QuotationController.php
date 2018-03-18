@@ -38,7 +38,7 @@ class QuotationController extends Controller
 
             $data =  execSelect("
                 SELECT q.quotation_id,
-                        COALESCE(c.c_name,'NA') AS name,
+                        COALESCE(c.c_name,'NA') AS party_name,
                         DATE_FORMAT(q.q_quotation_date, '%W %M %e %Y') as quotation_date,
                         q.q_address as address,
                         q.q_contact_number as contact_number,
@@ -55,14 +55,14 @@ class QuotationController extends Controller
                         DATE_FORMAT(q.q_warranty_date, '%W %M %e %Y') AS warranty_date
                 FROM quotation q
                     LEFT JOIN
-                customers c ON c.customers_id = q.q_name;", []);
+                customers c ON c.customers_id = q.q_party_name;", []);
 
             $data = collect($data);
             return Datatables::of($data)->make(true);
         }
         
         // return getColumnList($this->quotation);
-        $data['columns'] = excludeColumn(getColumnList($this->quotation), []); // Array to be excluded.
+        $data['columns'] = excludeColumn(getColumnList($this->quotation), ['rate','subtotal','taxes','quantity','product_description','total']); // Array to be excluded.
         $data['columns'] = array_merge(['activity'], $data['columns'], []);
         
         $data['pk'] = Quotation::getKeyField();
@@ -83,7 +83,7 @@ class QuotationController extends Controller
         $data['screen_name'] = 'quotation';
         $data['disabled'] = [];
 
-        $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
                                     ->pluck('c_name', Customer::getKeyField());
         return view('quotationcreate', ['data' => $data]);
     }
@@ -116,8 +116,13 @@ class QuotationController extends Controller
     public function edit($id)
     {
         $data = Quotation::find($id);
+<<<<<<< HEAD
         // $data['name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
                                     // ->pluck('c_name', Customer::getKeyField());
+=======
+        $data['party_name'] = Customer::orderBy(Customer::getKeyField(), 'desc')
+                                    ->pluck('c_name', Customer::getKeyField());
+>>>>>>> 321211b3a274e84e5981fe98dd2a2a3e6353d88d
         $data['q_quotation_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_quotation_date'])->format('Y-m-d');
         $data['q_warranty_date'] = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data['q_warranty_date'])->format('Y-m-d');
         // return $data;

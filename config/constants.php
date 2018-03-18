@@ -37,8 +37,12 @@ return [
 	    'prefix' => 'cc_'
 	],
 	'Maintainance'=> [
-	    'table' => 'Maintainance',
+	    'table' => 'maintainance',
 	    'prefix' => 'mnt_'
+	],
+	'MaintainanceType'=> [
+	    'table' => 'maintainance_type',
+	    'prefix' => 'mt_'
 	]
 
 ];
